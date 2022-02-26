@@ -39,10 +39,10 @@ public class ClientDAOImpl implements ClientDAO {
 	@Override
 	public Client getClient(int Id) {
 		Session miSession = hibernateUtil.getSession();
-		
+		miSession.beginTransaction();		
 		Query<Client> miQuery = miSession.createQuery("from Client c where c.id = :id", Client.class).setParameter("id", Id);
 		Client cliente = miQuery.getSingleResult();
-		
+		miSession.getTransaction().commit();		
 		return cliente;
 	}
 	
@@ -50,10 +50,10 @@ public class ClientDAOImpl implements ClientDAO {
 	@Transactional
 	public List<Client> getClients() {
 		Session miSession = hibernateUtil.getSession();
-		
+		miSession.beginTransaction();		
 		Query<Client> miQuery = miSession.createQuery("from Client", Client.class);
 		List<Client> clientes = miQuery.getResultList();
-		
+		miSession.getTransaction().commit();		
 		return clientes;
 	}
 	
@@ -82,11 +82,11 @@ public class ClientDAOImpl implements ClientDAO {
 	public Client getClient(String user) {
 		Session miSession = hibernateUtil.getSession();
 		Client client;
-
+		miSession.beginTransaction();
 		Query<Client> miQuery = miSession.createQuery("from Client where usuario = :usuario");
 		miQuery.setParameter("usuario", user);
 		client = miQuery.uniqueResult();
-
+		miSession.getTransaction().commit();
 		return client;
 	}
 

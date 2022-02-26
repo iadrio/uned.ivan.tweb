@@ -60,9 +60,10 @@ public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, Disposabl
 	@Override
 	public Employee getEmployee(int Id) {
 		Session miSession = hibernateUtil.getSession();
+		miSession.beginTransaction();
 		Query<Employee> miQuery = miSession.createQuery("from Employee c where c.id = :id", Employee.class).setParameter("id", Id);
 		Employee employee = miQuery.getSingleResult();
-		
+		miSession.getTransaction().commit();		
 		return employee;
 	}
 
@@ -70,10 +71,10 @@ public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, Disposabl
 	@Transactional
 	public List<Employee> getEmployees() {
 		Session miSession = hibernateUtil.getSession();
-		
+		miSession.beginTransaction();
 		Query<Employee> miQuery = miSession.createQuery("from Employee", Employee.class);
 		List<Employee> employees = miQuery.getResultList();
-		
+		miSession.getTransaction().commit();		
 		return employees;
 	}
 
@@ -90,11 +91,11 @@ public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, Disposabl
 	public Employee getEmployee(String user) {
 		Session miSession = hibernateUtil.getSession();
 		Employee employee;
-
+		miSession.beginTransaction();
 		Query<Employee> miQuery = miSession.createQuery("from Employee where usuario = :usuario");
 		miQuery.setParameter("usuario", user);
 		employee = miQuery.uniqueResult();
-
+		miSession.getTransaction().commit();
 		return employee;
 	}
 
