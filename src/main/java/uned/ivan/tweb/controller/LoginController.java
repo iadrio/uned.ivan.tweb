@@ -28,7 +28,7 @@ public class LoginController {
 	@RequestMapping("/formularioLogin")
 	public String formularioLogin(Model elModelo) {
 		UserSession userSession = new UserSession();
-		userSession.setEmpleado(false);
+		userSession.setEmpleado(true);
 		elModelo.addAttribute("userSession", userSession);
 
 		return "formularioLogin";

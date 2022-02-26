@@ -25,14 +25,10 @@
 				<td>¿Quieres iniciar sesión como empleado o como cliente?</td>
 				<td><form:radiobutton path="empleado" label="Empleado" value="true"/>  </td>
 				<td><form:radiobutton path="empleado" label="Cliente" value="false"/>  </td>
+				<td colspan="5"><input type="submit" value="login"></td>
 			</tr>
 			
 		</table>
-
-		<tr>
-			<td colspan="2"><input type="submit" value="login"></td>
-		</tr>
 	</form:form>
-	<a href="/tweb/usuarios/formularioAgregarCliente"><button type="button">Registrarse como cliente</button></a>
 </body>
 </html>
