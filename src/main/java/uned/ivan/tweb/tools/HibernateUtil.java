@@ -19,7 +19,7 @@ public class HibernateUtil {
     	if(session==null) {
     		session =  miFactory.openSession();
     	}else {
-    		session.clear();
+    		session =  miFactory.getCurrentSession();
     	}
     	
     	return session;
