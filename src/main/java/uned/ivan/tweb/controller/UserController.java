@@ -26,14 +26,17 @@ public class UserController {
 	@Autowired
 	private ClientDAO clientDAO;
 
+	@Autowired
+	private UserSession session;
 	
 	@RequestMapping("/lista")
 	public String listaClientes(Model elModelo) {
 		List<Employee> empleados=employeeDAO.getEmployees();
 		elModelo.addAttribute("empleados", empleados);
-		UserSession userSession = (UserSession) elModelo.getAttribute("userSession");
 		List<Client> clients=clientDAO.getClients();
 		elModelo.addAttribute("clientes", clients);
+		elModelo.addAttribute("userSession",session);
+		System.out.println(session);
 		return "lista-usuarios";
 	}
 	

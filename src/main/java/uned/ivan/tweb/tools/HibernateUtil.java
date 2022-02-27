@@ -18,11 +18,17 @@ public class HibernateUtil {
     public Session getSession(){
     	if(session==null) {
     		session =  miFactory.openSession();
+    		System.out.println("Devuelve sesión nueva");
     	}else {
     		session =  miFactory.getCurrentSession();
+    		System.out.println("Devuelve sesión nueva");
     	}
     	
     	return session;
+    }
+    
+    public SessionFactory getSessionFactory() {
+    	return miFactory;
     }
     
 }

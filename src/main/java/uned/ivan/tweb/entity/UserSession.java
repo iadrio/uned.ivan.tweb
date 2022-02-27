@@ -1,8 +1,10 @@
 package uned.ivan.tweb.entity;
 
+import org.springframework.context.annotation.*;
 import org.springframework.stereotype.Component;
 
 @Component
+@Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class UserSession {
 	private String usuario;
 	private String contraseña;

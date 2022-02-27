@@ -25,6 +25,9 @@ public class LoginController {
 	@Autowired
 	private ClientDAO clientDAO;
 	
+	@Autowired
+	private UserSession session;
+	
 	@RequestMapping("/formularioLogin")
 	public String formularioLogin(Model elModelo) {
 		UserSession userSession = new UserSession();
@@ -42,12 +45,20 @@ public class LoginController {
 			Employee employee = employeeDAO.getEmployee(userSession.getUsuario());
 			if(employee!=null&&employee.getContraseña().equals(userSession.getContraseña())){
 				userSession.setRol(employee.getRol());
+				session.setUsuario(userSession.getUsuario());
+				session.setContraseña(userSession.getContraseña());
+				session.setRol(userSession.getRol());
+				session.setEmpleado(userSession.isEmpleado());
 				elModelo.addAttribute("userSession", userSession);
 				return "loginOk";
 			}
 		}else {
 			Client client = clientDAO.getClient(userSession.getUsuario());
 			if(client!=null&&client.getContraseña().equals(userSession.getContraseña())){
+				session.setUsuario(userSession.getUsuario());
+				session.setContraseña(userSession.getContraseña());
+				session.setRol(userSession.getRol());
+				session.setEmpleado(userSession.isEmpleado());
 				elModelo.addAttribute("userSession", userSession);
 				return "loginOk";
 			}
