@@ -15,9 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import uned.ivan.tweb.tools.HibernateUtil;
 import uned.ivan.tweb.entity.Client;
 import uned.ivan.tweb.entity.Employee;
+import uned.ivan.tweb.entity.Roles;
 
 @Component
-public class ClientDAOImpl implements ClientDAO {
+public class ClientDAOImpl implements ClientDAO, InitializingBean, DisposableBean {
 	
 	@Autowired
 	private HibernateUtil hibernateUtil;
@@ -88,6 +89,19 @@ public class ClientDAOImpl implements ClientDAO {
 		client = miQuery.uniqueResult();
 		miSession.getTransaction().commit();
 		return client;
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		Client cliente = new Client("user","user",null,null,null,null,"user@user.es");
+		saveOrUpdateClient(cliente);
+		
 	}
 
 

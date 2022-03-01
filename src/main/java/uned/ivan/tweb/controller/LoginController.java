@@ -1,5 +1,8 @@
 package uned.ivan.tweb.controller;
 
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +18,8 @@ import uned.ivan.tweb.DAO.EmployeeDAO;
 import uned.ivan.tweb.entity.Client;
 import uned.ivan.tweb.entity.Employee;
 import uned.ivan.tweb.entity.UserSession;
+import uned.ivan.tweb.tools.HibernateUtil;
+
 
 @Controller
 @RequestMapping("/login")
@@ -25,13 +30,24 @@ public class LoginController {
 	@Autowired
 	private ClientDAO clientDAO;
 	
+	@Autowired
+	private UserSession session;
+	
+	@Autowired
+	private HibernateUtil hibernateUtil;
+	
 	@RequestMapping("/formularioLogin")
 	public String formularioLogin(Model elModelo) {
-		UserSession userSession = new UserSession();
-		userSession.setEmpleado(true);
-		elModelo.addAttribute("userSession", userSession);
-
+		session.setEmpleado(true);
+		elModelo.addAttribute("userSession", session);
 		return "formularioLogin";
+	}
+	
+	@RequestMapping("/cerrarSession")
+	public String cerrarSession(Model elModelo) {
+		session.reset();
+		hibernateUtil.getSession().close();
+		return "redirect:formularioLogin";
 	}
 	
 	@PostMapping("/checkLogin")
@@ -42,14 +58,25 @@ public class LoginController {
 			Employee employee = employeeDAO.getEmployee(userSession.getUsuario());
 			if(employee!=null&&employee.getContraseña().equals(userSession.getContraseña())){
 				userSession.setRol(employee.getRol());
+				session.setUsuario(userSession.getUsuario());
+				session.setContraseña(userSession.getContraseña());
+				session.setRol(userSession.getRol());
+				session.setEmpleado(userSession.isEmpleado());
+				session.setUser(employee);
+				
 				elModelo.addAttribute("userSession", userSession);
-				return "loginOk";
+				return "redirect:returnMenu";
 			}
 		}else {
 			Client client = clientDAO.getClient(userSession.getUsuario());
 			if(client!=null&&client.getContraseña().equals(userSession.getContraseña())){
+				session.setUsuario(userSession.getUsuario());
+				session.setContraseña(userSession.getContraseña());
+				session.setRol(userSession.getRol());
+				session.setEmpleado(userSession.isEmpleado());
+				session.setUser(client);
 				elModelo.addAttribute("userSession", userSession);
-				return "loginOk";
+				return "redirect:returnMenu";
 			}
 		}
 		
@@ -58,13 +85,18 @@ public class LoginController {
 	}
 	
 	
-	@PostMapping("/returnMenu")
-	public String returnMenu(@ModelAttribute("userSession") UserSession userSession, final RedirectAttributes redirectAttrs) {
-
-		redirectAttrs.addFlashAttribute("userSession",userSession);
-
-		return "redirect:/usuarios/lista";
-
+	@RequestMapping("/returnMenu")
+	public String returnMenu() {
+		switch(session.getRol()) {
+		
+		case "ADMINISTRADOR":
+			return "redirect:/usuarios/menuAdministrador";
+		case "ARQUITECTO":
+			return "redirect:/usuarios/lista";
+		default:
+			return "redirect:/usuarios/menuCliente";
+		}
 	}
+	
 
 }

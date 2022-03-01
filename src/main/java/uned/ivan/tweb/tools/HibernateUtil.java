@@ -25,4 +25,8 @@ public class HibernateUtil {
     	return session;
     }
     
+    public SessionFactory getSessionFactory() {
+    	return miFactory;
+    }
+    
 }
