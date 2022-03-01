@@ -22,9 +22,6 @@ public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, Disposabl
 	@Autowired
 	private HibernateUtil hibernateUtil;
 
-	
-
-
 	public EmployeeDAOImpl() {
 		super();
 		// TODO Auto-generated constructor stub

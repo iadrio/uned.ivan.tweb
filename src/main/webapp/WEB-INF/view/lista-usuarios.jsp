@@ -18,12 +18,10 @@ DATOS DE LA SESION
 	<tr>
 		<th>Usuario</th>
 		<th>Rol</th>
-		<th>Tipo</th>
 	</tr>
 		<tr>
 			<td>${userSession.usuario }</td>
 			<td>${userSession.rol }</td>
-			<td>${userSession.empleado }</td>
 		</tr>
 	<table>
 Estos son los empleados

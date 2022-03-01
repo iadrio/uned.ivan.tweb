@@ -5,6 +5,7 @@
     xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -15,7 +16,8 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx.xsd
 		http://www.springframework.org/schema/jdbc
-    	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd">
+    	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
+    	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 		
 
 	<!-- Paquete de escaneo de componentes -->
@@ -30,4 +32,11 @@
 		<property name="prefix" value="/WEB-INF/view/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
+	
+	<aop:aspectj-autoproxy/>
+	<bean id="myAspect" class="uned.ivan.tweb.AOP.loginAOP">
+    <!-- configure properties of aspect here as normal -->
+	</bean>
+	
+
 </beans>
