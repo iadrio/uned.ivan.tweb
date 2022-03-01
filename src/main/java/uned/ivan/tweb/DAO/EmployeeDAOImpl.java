@@ -27,18 +27,6 @@ public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, Disposabl
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-	public HibernateUtil getHibernateUtil() {
-		return hibernateUtil;
-	}
-
-
-	public void setHibernateUtil(HibernateUtil hibernateUtil) {
-		this.hibernateUtil = hibernateUtil;
-	}
-
-
-
 	@Override
 	@Transactional
 	public void saveOrUpdateEmployee(Employee employee) throws ConstraintViolationException {
@@ -104,7 +92,7 @@ public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, Disposabl
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		Employee employee = new Employee("admin","admin",null,null,null,null,"admin@admin.es");
+		Employee employee = new Employee("admin","admin",null,null,null,null,"admin@admin.es",null);
 		employee.setRol(Roles.ADMINISTRADOR.toString());
 		saveOrUpdateEmployee(employee);
 	}

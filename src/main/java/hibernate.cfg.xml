@@ -10,7 +10,7 @@
         <property name="connection.username">sa</property>
         <property name="connection.password"></property>
         <!-- JDBC connection pool settings ... using built-in test pool -->
-        <property name="connection.pool_size">1</property>
+        <property name="connection.pool_size">100</property>
         <!-- Select our SQL dialect -->
         <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
         <!-- Echo the SQL to stdout -->
@@ -28,5 +28,7 @@
         <mapping class="uned.ivan.tweb.entity.Client" />
         <mapping class="uned.ivan.tweb.entity.Employee" />
         <mapping class="uned.ivan.tweb.entity.User" />
+        <mapping class="uned.ivan.tweb.entity.Proyecto" />
+        <mapping class="uned.ivan.tweb.entity.ProyectoResidencial" />
     </session-factory>
 </hibernate-configuration>

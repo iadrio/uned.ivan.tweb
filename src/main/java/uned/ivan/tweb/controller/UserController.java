@@ -7,6 +7,7 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +28,10 @@ public class UserController {
 	
 	@Autowired
 	private ClientDAO clientDAO;
+	
+	@Autowired
+	@Qualifier("proyecto")
+	private ProyectoDAO proyectoDAO;
 
 	@Autowired
 	private UserSession session;
@@ -59,9 +64,15 @@ public class UserController {
 	
 	@RequestMapping("/menuCliente")
 	public String menuCliente(Model elModelo){
-		
+		List<Proyecto> proyecto=proyectoDAO.getProjects();
+		elModelo.addAttribute("proyectos", proyecto);
 		elModelo.addAttribute("userSession",session);
-		System.out.println(session);
+		if(proyecto != null) {
+			for(Proyecto p: proyecto) {
+				System.out.println("proyectos");
+				System.out.println(p);
+			}
+		}
 		return "menuCliente";
 	}
 	
@@ -101,7 +112,6 @@ public class UserController {
 		}catch(ConstraintViolationException e) {
 			return "actualizarUsuarioKo";
 		}
-		
 	}
 	
 	@GetMapping("/eliminarCliente")
@@ -152,18 +162,7 @@ public class UserController {
 		return "redirect:/usuarios/lista";
 	}
 
-	
-	
-	/*
-	@ModelAttribute("roles")
-	   public List<String> getRoles() {
-	      List<String> roles = new ArrayList<String>();
-	      for(Roles r: Roles.values()) {
-	    	  roles.add(r.toString());
-	      }
-	      return roles;
-	   }
-	   */
+
 	
 	public boolean checkSession(Model elModelo) {
 		UserSession userSession = (UserSession) elModelo.getAttribute("userSession");

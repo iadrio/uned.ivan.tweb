@@ -83,12 +83,15 @@ public class LoginController {
 		return "loginKo";
 
 	}
-	
-	
+		
 	@RequestMapping("/returnMenu")
 	public String returnMenu() {
-		switch(session.getRol()) {
 		
+		if(session.getUser() instanceof Client) {
+			return "redirect:/usuarios/menuCliente";
+		}
+		
+		switch(session.getRol()) {
 		case "ADMINISTRADOR":
 			return "redirect:/usuarios/menuAdministrador";
 		case "ARQUITECTO":

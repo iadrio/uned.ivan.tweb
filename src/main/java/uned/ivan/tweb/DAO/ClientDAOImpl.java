@@ -99,7 +99,7 @@ public class ClientDAOImpl implements ClientDAO, InitializingBean, DisposableBea
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		Client cliente = new Client("user","user",null,null,null,null,"user@user.es");
+		Client cliente = new Client("user","user",null,null,null,null,"user@user.es",null);
 		saveOrUpdateClient(cliente);
 		
 	}

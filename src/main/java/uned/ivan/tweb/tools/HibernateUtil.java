@@ -16,11 +16,12 @@ public class HibernateUtil {
 	}
     
     public Session getSession(){
-    	if(session==null) {
+    	//if(session==null) {
     		session =  miFactory.openSession();
-    	}else {
-    		session =  miFactory.getCurrentSession();
-    	}
+    		session.clear();
+    	//}else {
+    //		session =  miFactory.getCurrentSession();
+    //	}
     	
     	return session;
     }

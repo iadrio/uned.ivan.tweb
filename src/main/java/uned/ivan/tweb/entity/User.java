@@ -1,4 +1,6 @@
 package uned.ivan.tweb.entity;
+import java.util.List;
+
 import javax.persistence.*;
 
 
@@ -29,15 +31,17 @@ public abstract class User {
 	
 	@Column(name="email")
 	private String email;
-		
+
+	@OneToMany(mappedBy="cliente",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	private List<Proyecto> proyectos;
+	
 	
 	public User() {
 		super();
 	}
 
-
 	public User(String usuario, String contraseña, String nombre, String apellido1, String apellido2, String telefono,
-			String email) {
+			String email, List<Proyecto> proyectos) {
 		super();
 		this.usuario = usuario;
 		this.contraseña = contraseña;
@@ -46,9 +50,21 @@ public abstract class User {
 		this.apellido2 = apellido2;
 		this.telefono = telefono;
 		this.email = email;
+		this.proyectos = proyectos;
 	}
-	
-	
+
+
+
+
+
+	public List<Proyecto> getProyectos() {
+		return proyectos;
+	}
+
+	public void setProyectos(List<Proyecto> proyectos) {
+		this.proyectos = proyectos;
+	}
+
 	public String getUsuario() {
 		return usuario;
 	}
