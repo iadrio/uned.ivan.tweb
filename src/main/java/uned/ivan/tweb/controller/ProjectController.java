@@ -21,9 +21,6 @@ import uned.ivan.tweb.entity.Client;
 import uned.ivan.tweb.entity.Employee;
 import uned.ivan.tweb.entity.EstadosProyecto;
 import uned.ivan.tweb.entity.Proyecto;
-import uned.ivan.tweb.entity.ProyectoNoResidencial;
-import uned.ivan.tweb.entity.ProyectoRehabilitacion;
-import uned.ivan.tweb.entity.ProyectoResidencial;
 import uned.ivan.tweb.entity.Roles;
 
 @Controller
@@ -32,7 +29,7 @@ public class ProjectController {
 	
 	@Autowired
 	@Qualifier("proyecto")
-	private ProyectoDAO  ProyectoDAO;
+	private ProyectoDAO  proyectoDAO;
 	
 	@Autowired 
 	private BeanFactory beans;
@@ -46,21 +43,14 @@ public class ProjectController {
 	
 	@GetMapping("/formularioAgregarProyecto")
 	public String formularioAgregarProyecto(@RequestParam("tipo") String tipo, Model elModelo) {
-		Proyecto proyecto;	
+		Proyecto proyecto  = new Proyecto();
+		elModelo.addAttribute("proyecto", proyecto);
 		switch(tipo) {
 			case "residencial":
-				proyecto = new ProyectoResidencial();
-				elModelo.addAttribute("proyecto", proyecto);
 				return "formularioProyectoResidencial";
 			case "noResidencial":
-				proyecto = new ProyectoNoResidencial();
-				System.out.println(proyecto.getClass().getSimpleName());
-				elModelo.addAttribute("proyecto", (ProyectoNoResidencial) proyecto);
 				return "formularioProyectoNoResidencial";
 			case "rehabilitacion":
-				proyecto = new ProyectoRehabilitacion();
-				System.out.println(proyecto.getClass().getSimpleName());
-				elModelo.addAttribute("proyecto", (ProyectoRehabilitacion) proyecto);
 				return "formularioProyectoRehabilitacion";
 			default:
 				return "noImplementado";
@@ -69,27 +59,30 @@ public class ProjectController {
 	
 	@PostMapping("/anadirProyecto")
 	public String anadirProyectoResidencial(@ModelAttribute("proyecto") Proyecto proyecto,@ModelAttribute("tipo") String tipo) {
-		ProyectoDAO dao;
-
-		switch(tipo) {
-			
-			case "residencial":
-				dao=(uned.ivan.tweb.DAO.ProyectoDAO) beans.getBean("proyectoResidencialDAOImpl");
-				break;
-			case "rehabilitacion":
-				dao=(uned.ivan.tweb.DAO.ProyectoDAO) beans.getBean("proyectoRehabilitacionDAOImpl");
-				break;
-			case "no residencial":
-				dao=(uned.ivan.tweb.DAO.ProyectoDAO) beans.getBean("proyectoNoResidencialDAOImpl");
-				break;
-			default:
-				dao = ProyectoDAO;
-				break;
-		}
+		ProyectoDAO dao = proyectoDAO;
 		
 		proyecto.setFechaSolicitud(new Date());
 		proyecto.setEstado(EstadosProyecto.SOLICITADO.toString());
+		System.out.println("En el controller " +  proyecto);
 		dao.saveOrUpdateProject(proyecto);
 		return "redirect:/login/returnMenu";	
 	}
+	
+	@GetMapping("/verProyecto")
+	public String eliminarEmpleado(@RequestParam("proyectoId") int id,@RequestParam("tipo") String tipo, Model elModelo ) {
+		ProyectoDAO dao = proyectoDAO;
+		Proyecto proyecto = dao.getProject(id);
+		elModelo.addAttribute("proyecto", proyecto);
+		switch(tipo) {
+			case "residencial":
+				return "fichaProyectoResidencial";
+			case "noResidencial":
+				return "fichaProyectoNoResidencial";
+			case "rehabilitacion":
+				return "fichaProyectoRehabilitacion";
+			default:
+				return "noImplementado";
+		}
+	}
+
 }

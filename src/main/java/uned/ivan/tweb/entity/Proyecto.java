@@ -55,46 +55,38 @@ public class Proyecto {
 	
 	@Column(name="estado")
 	private String estado;
-
-
-
-	public Proyecto(int id, Client cliente, Employee empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
-			int duracionPrevista, Date fechaFin, float coste, String direccion, String tipo, String estado) {
-		super();
-		this.id = id;
-		this.cliente = cliente;
-		this.empleado = empleado;
-		this.fechaSolicitud = fechaSolicitud;
-		this.fechaInicioConstruccion = fechaInicioConstruccion;
-		this.duracionPrevista = duracionPrevista;
-		this.fechaFin = fechaFin;
-		this.coste = coste;
-		this.direccion = direccion;
-		this.tipo = tipo;
-		this.estado = estado;
-	}
-
-	public Proyecto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	
-	public String getTipo() {
-		return tipo;
-	}
-
-	public void setTipo(String tipo) {
-		this.tipo = tipo;
-	}
+	//Proyecto no residencial y residencial
+	
+	@Column(name="superficieTerreno")
+	private int superficieTerreno;
+	
+	@Column(name="superficieEdificio")
+	private int superficieEdificio;
 	
 	
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
+	//Proyecto no residencial
+	
+	@Column(name="finalidad")
+	private String finalidad;
+	
+	
+	//Proyecto rehabitliacion
+	@Column(name="superficieReforma")
+	private int superficieReforma;
+	
+	
+	//Proyecto  residencial
+	
+	
+	@Column(name="plantas")
+	private int plantas;
+	
+	@Column(name="habitaciones")
+	private int habitaciones;
+	
+	@Column(name="banhos")
+	private int banhos;
 
 	public int getId() {
 		return id;
@@ -168,13 +160,119 @@ public class Proyecto {
 		this.direccion = direccion;
 	}
 
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public int getSuperficieTerreno() {
+		return superficieTerreno;
+	}
+
+	public void setSuperficieTerreno(int superficieTerreno) {
+		this.superficieTerreno = superficieTerreno;
+	}
+
+	public int getSuperficieEdificio() {
+		return superficieEdificio;
+	}
+
+	public void setSuperficieEdificio(int superficieEdificio) {
+		this.superficieEdificio = superficieEdificio;
+	}
+
+	public String getFinalidad() {
+		return finalidad;
+	}
+
+	public void setFinalidad(String finalidad) {
+		this.finalidad = finalidad;
+	}
+
+	public int getSuperficieReforma() {
+		return superficieReforma;
+	}
+
+	public void setSuperficieReforma(int superficieReforma) {
+		this.superficieReforma = superficieReforma;
+	}
+
+	public int getPlantas() {
+		return plantas;
+	}
+
+	public void setPlantas(int plantas) {
+		this.plantas = plantas;
+	}
+
+	public int getHabitaciones() {
+		return habitaciones;
+	}
+
+	public void setHabitaciones(int habitaciones) {
+		this.habitaciones = habitaciones;
+	}
+
+	public int getBanhos() {
+		return banhos;
+	}
+
+	public void setBanhos(int banhos) {
+		this.banhos = banhos;
+	}
+
+	public Proyecto(int id, Client cliente, Employee empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
+			int duracionPrevista, Date fechaFin, float coste, String direccion, String tipo, String estado,
+			int superficieTerreno, int superficieEdificio, String finalidad, int superficieReforma, int plantas,
+			int habitaciones, int banhos) {
+		super();
+		this.id = id;
+		this.cliente = cliente;
+		this.empleado = empleado;
+		this.fechaSolicitud = fechaSolicitud;
+		this.fechaInicioConstruccion = fechaInicioConstruccion;
+		this.duracionPrevista = duracionPrevista;
+		this.fechaFin = fechaFin;
+		this.coste = coste;
+		this.direccion = direccion;
+		this.tipo = tipo;
+		this.estado = estado;
+		this.superficieTerreno = superficieTerreno;
+		this.superficieEdificio = superficieEdificio;
+		this.finalidad = finalidad;
+		this.superficieReforma = superficieReforma;
+		this.plantas = plantas;
+		this.habitaciones = habitaciones;
+		this.banhos = banhos;
+	}
+
+	public Proyecto() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "Proyecto [id=" + id + ", cliente=" + cliente + ", empleado=" + empleado + ", fechaSolicitud="
 				+ fechaSolicitud + ", fechaInicioConstruccion=" + fechaInicioConstruccion + ", duracionPrevista="
 				+ duracionPrevista + ", fechaFin=" + fechaFin + ", coste=" + coste + ", direccion=" + direccion
-				+ ", tipo=" + tipo + ", estado=" + estado + "]";
+				+ ", tipo=" + tipo + ", estado=" + estado + ", superficieTerreno=" + superficieTerreno
+				+ ", superficieEdificio=" + superficieEdificio + ", finalidad=" + finalidad + ", superficieReforma="
+				+ superficieReforma + ", plantas=" + plantas + ", habitaciones=" + habitaciones + ", banhos=" + banhos
+				+ "]";
 	}
+	
 
 
 	

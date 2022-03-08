@@ -57,8 +57,9 @@ MIS ULTIMOS PROYECTOS
 				<th>Tipo de proyecto</th>
 			</tr>
 		<c:forEach var="item" items="${proyectos}">
-		<c:url var="linkFichaProyecto" value="/Proyectos/verProyecto">
+		<c:url var="linkFichaProyecto" value="/proyectos/verProyecto">
 			<c:param name="proyectoId" value="${item.id}"/>
+			<c:param name="tipo" value="${item.tipo}"/>
 		</c:url>
 			<tr>
 				<td>${item.id }</td>

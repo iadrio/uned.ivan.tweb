@@ -28,8 +28,14 @@ public class loginAOP {
 	@Autowired
 	private UserSession session;
 	
-	@Pointcut("execution(String uned.ivan.tweb.controller.UserController.*(..))")
-	public void controladorUsuarios() {};
+	@Pointcut("execution(String uned.ivan.tweb.controller.*.*(..))")
+	public void controlador() {};
+	
+	@Pointcut("execution(String uned.ivan.tweb.controller.LoginController.formularioLogin(..))")
+	public void formularioLogin() {};
+	
+	@Pointcut("execution(String uned.ivan.tweb.controller.LoginController.checkLogin(..))")
+	public void checkLogin() {};
 	
 	@Pointcut("execution(String uned.ivan.tweb.controller.LoginController.returnMenu(..))")
 	public void returnMenu() {};
@@ -39,7 +45,7 @@ public class loginAOP {
 	
 	
 	
-	@Around("(controladorUsuarios() && !formularioAgregarCliente()) || returnMenu()")
+	@Around("(controlador() && !formularioAgregarCliente() && !formularioLogin() && !checkLogin() && !returnMenu())")
 	public String checkUserLogged(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {	
 		//Permitimos que los clientes creen una cuenta sin tener iniciada una sesión
 		Object[] argumentos = proceedingJoinPoint.getArgs();
@@ -50,7 +56,6 @@ public class loginAOP {
 			}
 		}
 		
-				
 		if(session.getUsuario() == null&&!newClient) {
 			return "accesoNoAutorizado";
 		}else {

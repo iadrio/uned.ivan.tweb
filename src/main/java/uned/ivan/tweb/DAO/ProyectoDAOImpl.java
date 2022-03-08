@@ -3,6 +3,7 @@ package uned.ivan.tweb.DAO;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,14 +22,26 @@ public class ProyectoDAOImpl implements ProyectoDAO {
 
 	@Override
 	public void saveOrUpdateProject(Proyecto proyecto) throws ConstraintViolationException {
-		System.out.println("añadiendo proyecto normal");
+		Session miSession = hibernateUtil.getSession();
+		Transaction tx = miSession.beginTransaction();
+		try {
+			miSession.saveOrUpdate(proyecto);
+			miSession.getTransaction().commit();	
+		}catch(ConstraintViolationException e) {
+			tx.rollback();
+			throw  e;
+		}
 
 	}
 
 	@Override
 	public Proyecto getProject(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session miSession = hibernateUtil.getSession();
+		miSession.beginTransaction();		
+		Query<Proyecto> miQuery = miSession.createQuery("from Proyecto c where c.id = :id", Proyecto.class).setParameter("id", id);
+		Proyecto proyecto = miQuery.getSingleResult();
+		miSession.getTransaction().commit();		
+		return proyecto;
 	}
 
 	@Override

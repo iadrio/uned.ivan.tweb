@@ -16,7 +16,7 @@ public class exceptionsAOP {
 	@Pointcut("execution(String uned.ivan.tweb.*.*.*(..))")
 	public void todos() {};
 	
-	
+	/*
 	@Around("todos()")
 	public String catchExceptions(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
 		try {
@@ -25,6 +25,6 @@ public class exceptionsAOP {
 			exception.printStackTrace();
 			return "error";
 		}
-	}
+	}*/
 
 }

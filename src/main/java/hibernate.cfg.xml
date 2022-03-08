@@ -29,6 +29,5 @@
         <mapping class="uned.ivan.tweb.entity.Employee" />
         <mapping class="uned.ivan.tweb.entity.User" />
         <mapping class="uned.ivan.tweb.entity.Proyecto" />
-        <mapping class="uned.ivan.tweb.entity.ProyectoResidencial" />
     </session-factory>
 </hibernate-configuration>

@@ -87,6 +87,10 @@ public class LoginController {
 	@RequestMapping("/returnMenu")
 	public String returnMenu() {
 		
+		if(session.getUser() == null) {
+			return "redirect:/login/formularioLogin";
+		}
+		
 		if(session.getUser() instanceof Client) {
 			return "redirect:/usuarios/menuCliente";
 		}
