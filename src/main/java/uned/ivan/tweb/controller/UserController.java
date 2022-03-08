@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import uned.ivan.tweb.DAO.*;
 import uned.ivan.tweb.entity.*;
 
-
 @Controller
 @RequestMapping("/usuarios")
 public class UserController {
