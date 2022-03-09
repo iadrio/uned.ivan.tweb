@@ -4,5 +4,6 @@ import org.springframework.stereotype.Component;
 
 public enum Roles {
 	ADMINISTRADOR,
-	ARQUITECTO
+	ARQUITECTO,
+	CLIENTE
 }
