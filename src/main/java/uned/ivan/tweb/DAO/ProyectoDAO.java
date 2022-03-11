@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.hibernate.exception.ConstraintViolationException;
 
-import uned.ivan.tweb.entity.Employee;
+import uned.ivan.tweb.entity.User;
 import uned.ivan.tweb.entity.Proyecto;
 
 

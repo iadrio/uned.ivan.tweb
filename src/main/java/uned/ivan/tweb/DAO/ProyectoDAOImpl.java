@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import uned.ivan.tweb.entity.Client;
 import uned.ivan.tweb.entity.Proyecto;
 import uned.ivan.tweb.tools.HibernateUtil;
 

@@ -11,29 +11,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import uned.ivan.tweb.entity.Client;
-import uned.ivan.tweb.entity.Employee;
+import uned.ivan.tweb.entity.User;
 import uned.ivan.tweb.entity.Roles;
 import uned.ivan.tweb.tools.HibernateUtil;
 
 @Component
-public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, DisposableBean {
+public class UsersDAOImpl implements UsersDAO, InitializingBean, DisposableBean {
 	
 	@Autowired
 	private HibernateUtil hibernateUtil;
 
-	public EmployeeDAOImpl() {
+	public UsersDAOImpl() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	@Transactional
-	public void saveOrUpdateEmployee(Employee employee) throws ConstraintViolationException {
+	public void saveOrUpdateUser(User user) throws ConstraintViolationException {
 		Session miSession = hibernateUtil.getSession();
 		Transaction tx = miSession.beginTransaction();
 		try {
-			miSession.saveOrUpdate(employee);
+			miSession.saveOrUpdate(user);
 			miSession.getTransaction().commit();
 		}catch(ConstraintViolationException e) {
 			tx.rollback();
@@ -43,45 +42,45 @@ public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, Disposabl
 	}
 
 	@Override
-	public Employee getEmployee(int Id) {
+	public User getUser(int Id) {
 		Session miSession = hibernateUtil.getSession();
 		miSession.beginTransaction();
-		Query<Employee> miQuery = miSession.createQuery("from Employee c where c.id = :id", Employee.class).setParameter("id", Id);
-		Employee employee = miQuery.getSingleResult();
+		Query<User> miQuery = miSession.createQuery("from User c where c.id = :id", User.class).setParameter("id", Id);
+		User user = miQuery.getSingleResult();
 		miSession.getTransaction().commit();		
-		return employee;
+		return user;
 	}
 
 	@Override
 	@Transactional
-	public List<Employee> getEmployees() {
+	public List<User> getUsers() {
 		Session miSession = hibernateUtil.getSession();
 		miSession.beginTransaction();
-		Query<Employee> miQuery = miSession.createQuery("from Employee", Employee.class);
-		List<Employee> employees = miQuery.getResultList();
+		Query<User> miQuery = miSession.createQuery("from User", User.class);
+		List<User> users = miQuery.getResultList();
 		miSession.getTransaction().commit();		
-		return employees;
+		return users;
 	}
 
 	@Override
-	public void deleteEmployee(int Id) {
+	public void deleteUser(int Id) {
 		Session miSession = hibernateUtil.getSession();
 		miSession.beginTransaction();
-		Query<Employee> miQuery = miSession.createQuery("delete from Employee where id = :id").setParameter("id", Id);
+		Query<User> miQuery = miSession.createQuery("delete from User where id = :id").setParameter("id", Id);
 		miQuery.executeUpdate();
 		miSession.getTransaction().commit();
 	}
 	
 	@Override
-	public Employee getEmployee(String user) {
+	public User getUser(String usuario) {
 		Session miSession = hibernateUtil.getSession();
-		Employee employee;
+		User user;
 		miSession.beginTransaction();
-		Query<Employee> miQuery = miSession.createQuery("from Employee where usuario = :usuario");
-		miQuery.setParameter("usuario", user);
-		employee = miQuery.uniqueResult();
+		Query<User> miQuery = miSession.createQuery("from User where usuario = :usuario");
+		miQuery.setParameter("usuario", usuario);
+		user = miQuery.uniqueResult();
 		miSession.getTransaction().commit();
-		return employee;
+		return user;
 	}
 
 	@Override
@@ -92,9 +91,15 @@ public class EmployeeDAOImpl implements EmployeeDAO, InitializingBean, Disposabl
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		Employee employee = new Employee("admin","admin",null,null,null,null,"admin@admin.es",null);
+		User employee = new User("admin","admin",null,null,null,null,"admin@admin.es",null, null);
 		employee.setRol(Roles.ADMINISTRADOR.toString());
-		saveOrUpdateEmployee(employee);
+		User customer = new User("user","user",null,null,null,null,"user@user.es",null, null);
+		customer.setRol(Roles.CLIENTE.toString());
+		User arquitecto = new User("arquitecto","arquitecto",null,null,null,null,"arquitecto@arquitecto.es",null, null);
+		arquitecto.setRol(Roles.ARQUITECTO.toString());
+		saveOrUpdateUser(employee);
+		saveOrUpdateUser(customer);
+		saveOrUpdateUser(arquitecto);
 	}
 
 }

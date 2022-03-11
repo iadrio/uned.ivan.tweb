@@ -16,8 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 
-import uned.ivan.tweb.entity.Client;
-import uned.ivan.tweb.entity.Employee;
+import uned.ivan.tweb.entity.User;
 import uned.ivan.tweb.entity.User;
 import uned.ivan.tweb.entity.UserSession;
 
@@ -37,26 +36,22 @@ public class loginAOP {
 	@Pointcut("execution(String uned.ivan.tweb.controller.LoginController.checkLogin(..))")
 	public void checkLogin() {};
 	
-	@Pointcut("execution(String uned.ivan.tweb.controller.LoginController.returnMenu(..))")
+	@Pointcut("execution(String uned.ivan.tweb.controller.UserController.menu(..))")
 	public void returnMenu() {};
 	
 	@Pointcut("execution(String uned.ivan.tweb.controller.UserController.formularioAgregarCliente(..))")
 	public void formularioAgregarCliente() {};
 	
+	@Pointcut("execution(String uned.ivan.tweb.controller.UserController.actualizarUsuario(..))")
+	public void actualizarUsuario() {};
 	
 	
-	@Around("(controlador() && !formularioAgregarCliente() && !formularioLogin() && !checkLogin() && !returnMenu())")
+	
+	@Around("(controlador() && !formularioAgregarCliente() && !formularioLogin() && !checkLogin() && !returnMenu() && !actualizarUsuario())")
 	public String checkUserLogged(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {	
-		//Permitimos que los clientes creen una cuenta sin tener iniciada una sesión
 		Object[] argumentos = proceedingJoinPoint.getArgs();
-		boolean newClient = false;
-		for(Object o: argumentos) {
-			if(o instanceof Client && ((Client) o).getId()==0) {
-				newClient = true;
-			}
-		}
-		
-		if(session.getUsuario() == null&&!newClient) {
+
+		if(session.getUsuario() == null) {
 			return "accesoNoAutorizado";
 		}else {
 			return (String) proceedingJoinPoint.proceed();

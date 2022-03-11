@@ -9,45 +9,24 @@
 </head>
 <body>
 
-DATOS DE USUARIO
-	<table>
-	<tr>
-		<th>usuario: ${userSession.user.usuario}</th>
-	</tr>
-	<tr>
-		<th>nombre: ${userSession.user.nombre }</th>
-	</tr>
-	<tr>
-		<th>apellido1: ${userSession.user.apellido1 }</th>
-	</tr>
-	<tr>
-		<th>apellido2: ${userSession.user.apellido2 }</th>
-	</tr>
-	<tr>
-		<th>telefono: ${userSession.user.telefono }</th>
-	</tr>
-	<tr>
-		<th>email: ${userSession.user.email }</th>
-	</tr>
-	</table>
-	
+	<%@include file="components/miSesion.jsp" %> 
 
 	<c:url var="linkActualizar" value="/usuarios/formularioActualizarCliente">
 		<c:param name="clienteId" value="${userSession.user.id}"/>
 	</c:url>
 	<a href="/tweb/proyectos/formularioSeleccionProyecto"><button type="button">Solicitar un nuevo proyecto</button></a>
-	<a href="/tweb/usuarios/formularioAgregarCliente"><button type="button">Solicitar un nuevo certificado</button></a>
+	<a href="/tweb/certificados/formularioSeleccionCertificado"><button type="button">Solicitar un nuevo certificado</button></a>
 	<a href="${linkActualizar}"><button type="button">Modificar mis datos</button></a>
 	<a href="/tweb/login/formularioLogin"><button type="button">Cambiar de usuario</button></a>
 	<a href="/tweb/login/cerrarSession"><button type="button">Cerrar sesion</button></a>
 	</br>
-MIS ULTIMOS CERTIFICADOS
+MIS  CERTIFICADOS
 	<table>
 
 	</table>
 	
 	</br>
-MIS ULTIMOS PROYECTOS
+MIS  PROYECTOS
 	<table>
 			<tr>
 				<th>Id</th>

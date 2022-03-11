@@ -25,9 +25,11 @@
         <property name="hibernate.dbcp.maxIdle">10</property>
         <property name="hibernate.dbcp.minIdle">5</property>
         <property name="hibernate.dbcp.maxWaitMillis">-1</property>
-        <mapping class="uned.ivan.tweb.entity.Client" />
-        <mapping class="uned.ivan.tweb.entity.Employee" />
         <mapping class="uned.ivan.tweb.entity.User" />
         <mapping class="uned.ivan.tweb.entity.Proyecto" />
+        <mapping class="uned.ivan.tweb.entity.Certificado" />
+        <mapping class="uned.ivan.tweb.entity.Vivienda" />
+        <mapping class="uned.ivan.tweb.entity.CertificadoEnergetico" />
+        <mapping class="uned.ivan.tweb.entity.InformePericial" />
     </session-factory>
 </hibernate-configuration>

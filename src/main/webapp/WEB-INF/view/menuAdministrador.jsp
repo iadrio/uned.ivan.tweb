@@ -13,29 +13,8 @@
 
 </head>
 <body>
-DATOS DE USUARIO
-	<table>
-	<tr>
-		<th>usuario: ${userSession.user.usuario}</th>
-	</tr>
-	<tr>
-		<th>nombre: ${userSession.user.nombre }</th>
-	</tr>
-	<tr>
-		<th>apellido1: ${userSession.user.apellido1 }</th>
-	</tr>
-	<tr>
-		<th>apellido2: ${userSession.user.apellido2 }</th>
-	</tr>
-	<tr>
-		<th>telefono: ${userSession.user.telefono }</th>
-	</tr>
-	<tr>
-		<th>email: ${userSession.user.email }</th>
-	</tr>
-	</table>
+	<%@include file="components/miSesion.jsp" %>
 	
-
 	<c:url var="linkActualizarEmpleado" value="/usuarios/formularioActualizarEmpleado">
 		<c:param name="clienteId" value="${userSession.user.id}"/>
 	</c:url>

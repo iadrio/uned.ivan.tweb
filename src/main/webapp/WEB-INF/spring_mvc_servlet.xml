@@ -19,12 +19,21 @@
     	http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
     	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
 		
-
+	<context:property-placeholder location="classpath:pdf-view.properties"/>
+	
 	<!-- Paquete de escaneo de componentes -->
 	<context:component-scan base-package="uned.ivan.tweb" />
 
 	<!-- Conversión formateo y validación-->
-	<mvc:annotation-driven/>
+	<mvc:annotation-driven conversion-service="conversionService"/>
+	<bean class="org.springframework.context.support.ConversionServiceFactoryBean"
+	    id="conversionService">
+	    <property name="converters">
+	        <list>
+	            <bean class="uned.ivan.tweb.controller.CertificateConverter"></bean>
+	        </list>
+	    </property>
+	</bean>
 
 	<!-- Configuración Spring MVC directorio view  -->
 	<bean
@@ -33,10 +42,18 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 	
+	  <bean id="PDFResolver" 
+	  class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+	    <property name="order" value="1"/>
+	    <property name="basename" value="pdf-view"/>
+	  </bean>
+	
 	<aop:aspectj-autoproxy/>
 	<bean id="myAspect" class="uned.ivan.tweb.AOP.loginAOP">
     <!-- configure properties of aspect here as normal -->
 	</bean>
 	
+	
 
+	
 </beans>

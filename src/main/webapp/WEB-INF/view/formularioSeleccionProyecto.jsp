@@ -13,7 +13,7 @@
 	selecciona el tipo de proyecto:
 			</br>
 	        <input type="radio" name=tipo value="residencial"  required="required"/>Residencial
-	        <input type="radio" name=tipo value="noResidencial" />No residencial
+	        <input type="radio" name=tipo value="no residencial" />No residencial
 	        <input type="radio" name=tipo value="rehabilitacion" />Rehabilitacion
 	<input type="submit" value="Siguiente" />
 </form>

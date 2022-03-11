@@ -17,7 +17,6 @@ import javax.persistence.InheritanceType;
 
 
 @Entity
-@Inheritance(strategy=InheritanceType.JOINED)
 public class Proyecto {
 	@Id
 	@GeneratedValue(strategy=GenerationType.TABLE)
@@ -26,11 +25,11 @@ public class Proyecto {
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JoinColumn(name="cliente_id")
-	private Client cliente;
+	private User cliente;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	@JoinColumn(name="arquitecto_id")
-	private Employee empleado;
+	private User empleado;
 	
 	@Column(name="fechaSolicitud")
 	private Date fechaSolicitud;
@@ -47,9 +46,6 @@ public class Proyecto {
 	@Column(name="coste")
 	private float coste;
 	
-	@Column(name="direccion")
-	private String direccion;
-	
 	@Column(name="tipo")
 	private String tipo;
 	
@@ -57,6 +53,8 @@ public class Proyecto {
 	private String estado;
 	
 	//Proyecto no residencial y residencial
+	@Column(name="direccion")
+	private String direccion;
 	
 	@Column(name="superficieTerreno")
 	private int superficieTerreno;
@@ -64,20 +62,16 @@ public class Proyecto {
 	@Column(name="superficieEdificio")
 	private int superficieEdificio;
 	
-	
 	//Proyecto no residencial
 	
 	@Column(name="finalidad")
 	private String finalidad;
 	
-	
 	//Proyecto rehabitliacion
 	@Column(name="superficieReforma")
 	private int superficieReforma;
 	
-	
 	//Proyecto  residencial
-	
 	
 	@Column(name="plantas")
 	private int plantas;
@@ -96,19 +90,19 @@ public class Proyecto {
 		this.id = id;
 	}
 
-	public Client getCliente() {
+	public User getCliente() {
 		return cliente;
 	}
 
-	public void setCliente(Client cliente) {
+	public void setCliente(User cliente) {
 		this.cliente = cliente;
 	}
 
-	public Employee getEmpleado() {
+	public User getEmpleado() {
 		return empleado;
 	}
 
-	public void setEmpleado(Employee empleado) {
+	public void setEmpleado(User empleado) {
 		this.empleado = empleado;
 	}
 
@@ -232,7 +226,7 @@ public class Proyecto {
 		this.banhos = banhos;
 	}
 
-	public Proyecto(int id, Client cliente, Employee empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
+	public Proyecto(int id, User cliente, User empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
 			int duracionPrevista, Date fechaFin, float coste, String direccion, String tipo, String estado,
 			int superficieTerreno, int superficieEdificio, String finalidad, int superficieReforma, int plantas,
 			int habitaciones, int banhos) {

@@ -12,6 +12,10 @@
 	<input type="hidden" name="tipo" value="rehabilitacion"/>
 		<table>
 			<tr>
+				<td>direccion: </td>
+				<td><form:input path="direccion"/></td>
+			</tr>
+			<tr>
 				<td>superficie a reformar: </td>
 				<td><form:input path="superficieReforma"/></td>
 			</tr>

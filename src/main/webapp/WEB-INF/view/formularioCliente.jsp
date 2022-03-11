@@ -9,8 +9,9 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/recursos/css/estilos.css"/>
 </head>
 <body>
-	<form:form action="actualizarCliente" modelAttribute="cliente" method="POST">
+	<form:form action="actualizarUsuario" modelAttribute="cliente" method="POST">
 		<form:hidden path="id"/>
+		<form:hidden path="rol"/>
 		<table>
 			<tr>
 				<td>Nombre: </td>
@@ -46,7 +47,7 @@
 				<td>contraseña: </td>
 				<td><form:input path="contraseña"/></td>
 			</tr>
-
+			
 			<tr>
 				<td colspan="2"><input type="submit" value="update/insert"></td>
 			</tr>

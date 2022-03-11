@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,8 +24,8 @@
 		<c:url var="linkActualizar" value="/usuarios/formularioActualizarCliente">
 			<c:param name="clienteId" value="${item.id}"/>
 		</c:url>
-		<c:url var="linkEliminar" value="/usuarios/eliminarCliente">
-			<c:param name="clienteId" value="${item.id}"/>
+		<c:url var="linkEliminar" value="/usuarios/eliminarUsuario">
+			<c:param name="userId" value="${item.id}"/>
 		</c:url>
 		<tr>
 			<td>${item.id }</td>
@@ -39,6 +40,9 @@
 		
 		</tr>
 	</c:forEach>
+	<form:form method="POST" action="viewPDF">
+		<input type="submit" value="View PDF" />
+	</form:form>
 </table>
 </body>
 </html>

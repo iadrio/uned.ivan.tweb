@@ -8,39 +8,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-
-PROYECTO: ${proyecto.id}
+	<%@include file="components/fichaProyecto.jsp" %> 
 	<table>
-	<tr>
-		<th>cliente: ${proyecto.cliente}</th>
-	</tr>
-	<tr>
-		<th>arquitecto asignado: ${proyecto.empleado}</th>
-	</tr>
-	<tr>
-		<th>fechaSolicitud: ${proyecto.fechaSolicitud}</th>
-	</tr>
-	<tr>
-		<th>fechaInicioConstruccion: ${proyecto.fechaInicioConstruccion}</th>
-	</tr>
-	<tr>
-		<th>duracionPrevista: ${proyecto.duracionPrevista}</th>
-	</tr>
-	<tr>
-		<th>fechaFin: ${proyecto.fechaFin}</th>
-	</tr>
-	<tr>
-		<th>coste: ${proyecto.coste}</th>
-	</tr>
-	<tr>
-		<th>direccion: ${proyecto.direccion}</th>
-	</tr>
-	
-	<tr>
-		<th>tipo: ${proyecto.tipo}</th>
-	</tr>
-	
-
+		<tr>
+			<th>plantas: ${proyecto.plantas}</th>
+		</tr>
+		<tr>
+			<th>habitaciones: ${proyecto.habitaciones}</th>
+		</tr>
+		<tr>
+			<th>baños: ${proyecto.banhos}</th>
+		</tr>
 	</table>
 </body>
 </html>

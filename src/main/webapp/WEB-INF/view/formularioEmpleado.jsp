@@ -9,7 +9,7 @@
 <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath}/recursos/css/estilos.css"/>
 </head>
 <body>
-	<form:form action="actualizarEmpleado" modelAttribute="empleado" method="POST">
+	<form:form action="actualizarUsuario" modelAttribute="empleado" method="POST">
 		<form:hidden path="id"/>
 		<table>
 			<tr>

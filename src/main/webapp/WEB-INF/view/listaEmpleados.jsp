@@ -24,8 +24,8 @@
 		<c:url var="linkActualizar" value="/usuarios/formularioActualizarEmpleado">
 			<c:param name="clienteId" value="${item.id}"/>
 		</c:url>
-		<c:url var="linkEliminar" value="/usuarios/eliminarEmpleado">
-			<c:param name="clienteId" value="${item.id}"/>
+		<c:url var="linkEliminar" value="/usuarios/eliminarUsuario">
+			<c:param name="userId" value="${item.id}"/>
 		</c:url>
 		<tr>
 			<td>${item.id }</td>

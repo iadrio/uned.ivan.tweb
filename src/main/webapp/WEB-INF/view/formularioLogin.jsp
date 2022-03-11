@@ -22,10 +22,8 @@
 			</tr>
 			
 			<tr>
-				<td>¿Quieres iniciar sesión como empleado o como cliente?</td>
-				<td><form:radiobutton path="empleado" label="Empleado" value="true"/>  </td>
-				<td><form:radiobutton path="empleado" label="Cliente" value="false"/>  </td>
-				<td colspan="5"><input type="submit" value="login"></td>
+				<td colspan="1"><input type="submit" value="login"></td>
+				<td><a href="/tweb/usuarios/formularioAgregarCliente"><button type="button">Nuevo Cliente</button></a></td>
 			</tr>
 			
 		</table>
