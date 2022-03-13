@@ -5,23 +5,23 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import uned.ivan.tweb.entity.Certificado;
+import uned.ivan.tweb.entity.Proyecto;
 import uned.ivan.tweb.tools.HibernateUtil;
 
 @Component
-@Qualifier("InformePericialDAOImpl")
-public class InformePericialDAOImpl implements CertificadoDAO {
+@Qualifier("CertificadoDAOImpl")
+public abstract class CertificadoDAOImpl implements CertificadoDAO {
 	@Autowired
-	private HibernateUtil hibernateUtil;
+	protected HibernateUtil hibernateUtil;
 	
 	@Override
 	public void saveOrUpdate(Certificado certificado) throws ConstraintViolationException {
-		System.out.println("pericial!!!");
-		System.out.println(certificado);
 		Session miSession = hibernateUtil.getSession();
 		Transaction tx = miSession.beginTransaction();
 		try {
@@ -33,22 +33,5 @@ public class InformePericialDAOImpl implements CertificadoDAO {
 		}
 	}
 
-	@Override
-	public Certificado getCertificado(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Certificado> getCertificados() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void assign() {
-		// TODO Auto-generated method stub
-
-	}
 
 }

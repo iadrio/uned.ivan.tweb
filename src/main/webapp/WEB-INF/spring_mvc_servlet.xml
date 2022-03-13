@@ -24,17 +24,6 @@
 	<!-- Paquete de escaneo de componentes -->
 	<context:component-scan base-package="uned.ivan.tweb" />
 
-	<!-- Conversión formateo y validación-->
-	<mvc:annotation-driven conversion-service="conversionService"/>
-	<bean class="org.springframework.context.support.ConversionServiceFactoryBean"
-	    id="conversionService">
-	    <property name="converters">
-	        <list>
-	            <bean class="uned.ivan.tweb.controller.CertificateConverter"></bean>
-	        </list>
-	    </property>
-	</bean>
-
 	<!-- Configuración Spring MVC directorio view  -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">

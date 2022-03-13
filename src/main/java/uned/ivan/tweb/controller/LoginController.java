@@ -41,7 +41,7 @@ public class LoginController {
 	@RequestMapping("/cerrarSession")
 	public String cerrarSession(Model elModelo) {
 		session.reset();
-		hibernateUtil.getSession().close();
+	//	hibernateUtil.getSession().close();
 		return "redirect:formularioLogin";
 	}
 	

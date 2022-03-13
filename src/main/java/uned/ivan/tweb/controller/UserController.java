@@ -37,12 +37,9 @@ import uned.ivan.tweb.entity.*;
 @Controller
 @RequestMapping("/usuarios")
 public class UserController  {
-	@Autowired
-	private UsersDAO userDAO;
 	
 	@Autowired
-	@Qualifier("proyecto")
-	private ProyectoDAO proyectoDAO;
+	private PersistanceFacade  persistance;
 
 	@Autowired
 	private UserSession session;
@@ -63,13 +60,22 @@ public class UserController  {
 	
 	@RequestMapping("/menu")
 	public String menu(Model elModelo){
-		List<Proyecto> proyecto=proyectoDAO.getProjects();
+		User user = session.getUser();
+		List<Proyecto> proyecto=persistance.getProyectos(user);
+		List<Proyecto> proyectosAsignados=persistance.getProyectosAsignados(user);
+		List<Proyecto> proyectosSinAsignar=persistance.getProyectosSinAsignar();
 		List<User> empleados= getEmpleados();
 		List<User> clients= getClientes();
+		List<Certificado> certificados= persistance.getCertificados(user);
+		List<Vivienda> viviendas= persistance.getViviendas(user);
 		elModelo.addAttribute("proyectos", proyecto);
+		elModelo.addAttribute("certificados", certificados);
 		elModelo.addAttribute("userSession",session);
 		elModelo.addAttribute("empleados", empleados);
 		elModelo.addAttribute("clientes", clients);
+		elModelo.addAttribute("viviendas", viviendas);
+		elModelo.addAttribute("proyectosAsignados", proyectosAsignados);
+		elModelo.addAttribute("proyectosSinAsignar", proyectosSinAsignar);
 		
 		if(session.getUser() == null) {
 			return "redirect:/login/formularioLogin";
@@ -97,7 +103,7 @@ public class UserController  {
 	
 	@GetMapping("/formularioActualizarCliente")
 	public String muestraFormularioActualizar(@RequestParam("clienteId") int id, Model elModelo ) {
-		User cliente = userDAO.getUser(id);
+		User cliente = persistance.getUser(id);
 		elModelo.addAttribute("cliente", cliente);
 		return "formularioCliente";
 	}
@@ -118,7 +124,7 @@ public class UserController  {
 	
 	@GetMapping("/formularioActualizarEmpleado")
 	public String formularioActualizarEmpleado(@RequestParam("clienteId") int id, Model elModelo ) {
-		User employee = userDAO.getUser(id);
+		User employee = persistance.getUser(id);
 		List<String> roles = new ArrayList<String>();
 	    for(Roles r: Roles.values()) {
 	    	roles.add(r.toString());
@@ -132,7 +138,7 @@ public class UserController  {
 	@PostMapping("/actualizarUsuario")
 	public String actualizarUsuario(@ModelAttribute("usuario") User usuario) {
 		try {
-			userDAO.saveOrUpdateUser(usuario);
+			persistance.saveOrUpdateUser(usuario);
 			return "redirect:/usuarios/menu";
 		}catch(ConstraintViolationException e) {
 			return "actualizarUsuarioKo";
@@ -141,17 +147,23 @@ public class UserController  {
 	
 	@GetMapping("/eliminarUsuario")
 	public String eliminarCliente(@RequestParam("userId") int id, Model elModelo ) {
-			userDAO.deleteUser(id);
+			persistance.deleteUser(id);
 			return "redirect:/usuarios/menu";
 	}
+	
+	  @RequestMapping(value = "/viewPDF", method = RequestMethod.POST)
+	  public ModelAndView viewPDF() throws Exception{
+	    List<User> users = getClientes();
+	    return new ModelAndView("viewPDF", "Users", users);
+	  }
 
 	public List<User> getUsers(){
-		List<User> users =userDAO.getUsers();
+		List<User> users =persistance.getUsers();
 		return users;
 	}
 	
 	public List<User> getUsers(List<String> roles){
-		List<User> users=userDAO.getUsers();
+		List<User> users=persistance.getUsers();
 		List<User> filteredUsers = new ArrayList<User>();
 		for(User u: users){
 			if(roles.contains(u.getRol())) {
@@ -180,11 +192,7 @@ public class UserController  {
 		}
 	}
 
-	  @RequestMapping(value = "/viewPDF", method = RequestMethod.POST)
-	  public ModelAndView viewPDF() throws Exception{
-	    List<User> users = getClientes();
-	    return new ModelAndView("viewPDF", "Users", users);
-	  }
+
 	
 
 

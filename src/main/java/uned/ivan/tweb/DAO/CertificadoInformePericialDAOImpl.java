@@ -13,14 +13,14 @@ import uned.ivan.tweb.entity.Certificado;
 import uned.ivan.tweb.tools.HibernateUtil;
 
 @Component
-@Qualifier("CertificadoEnergeticoDAOImpl")
-public class CertificadoEnergeticoDAOImpl extends CertificadoDAOImpl implements CertificadoDAO {
+@Qualifier("CertificadoInformePericialDAOImpl")
+public class CertificadoInformePericialDAOImpl extends CertificadoDAOImpl implements CertificadoDAO {
 
 	@Override
 	public Certificado getCertificado(int id) {
 		Session miSession = hibernateUtil.getSession();
 		miSession.beginTransaction();		
-		Query<Certificado> miQuery = miSession.createQuery("from CertificadoEnergetico c where c.id = :id", Certificado.class).setParameter("id", id);
+		Query<Certificado> miQuery = miSession.createQuery("from InformePericial c where c.id = :id", Certificado.class).setParameter("id", id);
 		Certificado certificado = miQuery.getSingleResult();
 		miSession.getTransaction().commit();		
 		return certificado;
@@ -30,7 +30,7 @@ public class CertificadoEnergeticoDAOImpl extends CertificadoDAOImpl implements 
 	public List<Certificado> getCertificados() {
 		Session miSession = hibernateUtil.getSession();
 		miSession.beginTransaction();		
-		Query<Certificado> miQuery = miSession.createQuery("from CertificadoEnergetico", Certificado.class);
+		Query<Certificado> miQuery = miSession.createQuery("from InformePericial", Certificado.class);
 		List<Certificado> certificados = miQuery.getResultList();
 		miSession.getTransaction().commit();		
 		return certificados;

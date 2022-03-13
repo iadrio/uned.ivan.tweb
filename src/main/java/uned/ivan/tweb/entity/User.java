@@ -1,5 +1,6 @@
 package uned.ivan.tweb.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -39,12 +40,25 @@ public class User {
 	@Column(name="email")
 	private String email;
 
-	@OneToMany(mappedBy="cliente",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@OneToMany(mappedBy="cliente",cascade = {CascadeType.ALL})
 	private List<Proyecto> proyectos;
+	
+	@OneToMany(mappedBy="cliente",cascade = {CascadeType.ALL})
+	private List<Certificado> certificados;
+	
+	@OneToMany(mappedBy="cliente",cascade = {CascadeType.ALL})
+	private List<Vivienda> viviendas;
 	
 	@Column(name="rol")
 	private String rol;
 	
+	public List<Vivienda> getViviendas() {
+		return viviendas;
+	}
+
+	public void setViviendas(List<Vivienda> viviendas) {
+		this.viviendas = viviendas;
+	}
 
 	public int getId() {
 		return id;
@@ -144,14 +158,34 @@ public class User {
 		super();
 	}
 
+
 	@Override
 	public String toString() {
-		return "Employee [id=" + id + ", usuario=" + usuario + ", contraseña=" + contraseña + ", nombre=" + nombre
+		return "User [id=" + id + ", usuario=" + usuario + ", contraseña=" + contraseña + ", nombre=" + nombre
 				+ ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", telefono=" + telefono + ", email="
-				+ email + ", proyectos=" + proyectos + ", rol=" + rol + "]";
+				+ email + ", proyectos=" + proyectos + ", certificados=" + certificados + ", viviendas=" + viviendas
+				+ ", rol=" + rol + "]";
 	}
 
+	public void agregarProyecto(Proyecto proyecto) {
+		if(proyectos == null) {
+			proyectos = new ArrayList<Proyecto>();
+		}
+		proyectos.add(proyecto);
+	}
 	
-
+	public void agregarVivienda(Vivienda vivienda) {
+		if(viviendas == null) {
+			viviendas = new ArrayList<Vivienda>();
+		}
+		viviendas.add(vivienda);
+	}
+	
+	public void agregarCertificado(Certificado certificado) {
+		if(certificados == null) {
+			certificados = new ArrayList<Certificado>();
+		}
+		certificados.add(certificado);
+	}
 
 }

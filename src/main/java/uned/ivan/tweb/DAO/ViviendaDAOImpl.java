@@ -2,54 +2,55 @@ package uned.ivan.tweb.DAO;
 
 import java.util.List;
 
+import javax.validation.ConstraintViolationException;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
-import uned.ivan.tweb.entity.Proyecto;
+import uned.ivan.tweb.entity.Certificado;
+import uned.ivan.tweb.entity.Vivienda;
 import uned.ivan.tweb.tools.HibernateUtil;
 
 @Component
-@Qualifier("proyecto")
-public class ProyectoDAOImpl implements ProyectoDAO {
+public class ViviendaDAOImpl implements ViviendaDAO{
 	@Autowired
-	private HibernateUtil hibernateUtil;
+	protected HibernateUtil hibernateUtil;
 
 	@Override
-	public void saveOrUpdate(Proyecto proyecto) throws ConstraintViolationException {
+	public void saveOrUpdate(Vivienda vivienda) throws ConstraintViolationException {
 		Session miSession = hibernateUtil.getSession();
 		Transaction tx = miSession.beginTransaction();
 		try {
-			miSession.saveOrUpdate(proyecto);
+			miSession.saveOrUpdate(vivienda);
 			miSession.getTransaction().commit();	
 		}catch(ConstraintViolationException e) {
 			tx.rollback();
 			throw  e;
 		}
-
+		
 	}
 
 	@Override
-	public Proyecto getProject(int id) {
+	public Vivienda getVivienda(int id) {
 		Session miSession = hibernateUtil.getSession();
 		miSession.beginTransaction();		
-		Query<Proyecto> miQuery = miSession.createQuery("from Proyecto c where c.id = :id", Proyecto.class).setParameter("id", id);
-		Proyecto proyecto = miQuery.getSingleResult();
+		Query<Vivienda> miQuery = miSession.createQuery("from Vivienda c where c.id = :id", Vivienda.class).setParameter("id", id);
+		Vivienda vivienda = miQuery.getSingleResult();
 		miSession.getTransaction().commit();		
-		return proyecto;
+		return vivienda;
 	}
 
 	@Override
-	public List<Proyecto> getProjects() {
+	public List<Vivienda> getViviendas() {
 		Session miSession = hibernateUtil.getSession();
 		miSession.beginTransaction();		
-		Query<Proyecto> miQuery = miSession.createQuery("from Proyecto", Proyecto.class);
-		List<Proyecto> proyectos = miQuery.getResultList();
+		Query<Vivienda> miQuery = miSession.createQuery("from Vivienda", Vivienda.class);
+		List<Vivienda> viviendas = miQuery.getResultList();
 		miSession.getTransaction().commit();		
-		return proyectos;
+		return viviendas;
 	}
+
 }

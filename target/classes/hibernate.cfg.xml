@@ -31,5 +31,7 @@
         <mapping class="uned.ivan.tweb.entity.Vivienda" />
         <mapping class="uned.ivan.tweb.entity.CertificadoEnergetico" />
         <mapping class="uned.ivan.tweb.entity.InformePericial" />
+        <mapping class="uned.ivan.tweb.entity.CertificadoHabitabilidad" />
+        <mapping class="uned.ivan.tweb.entity.CertificadoInspeccionTecnica" />
     </session-factory>
 </hibernate-configuration>

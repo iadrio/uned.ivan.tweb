@@ -24,7 +24,7 @@ public  abstract class Certificado {
 	private int id;
 	
 	@Column(name="tipo")
-	private String tipo;	
+	private TipoCertificado tipo;	
 	
 	@Column(name="fechaSolicitud")
 	private Date fechaSolicitud;
@@ -47,6 +47,9 @@ public  abstract class Certificado {
 	@JoinColumn(name="id_vivienda")
 	private Vivienda vivienda;
 	
+	@Column(name="estado")
+	private String estado;
+	
 	@Column(name="otrosDatos")
 	private String otrosDatos;
 
@@ -58,11 +61,11 @@ public  abstract class Certificado {
 		this.id = id;
 	}
 
-	public String getTipo() {
+	public TipoCertificado getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoCertificado tipo) {
 		this.tipo = tipo;
 	}
 
@@ -121,9 +124,17 @@ public  abstract class Certificado {
 	public void setOtrosDatos(String otrosDatos) {
 		this.otrosDatos = otrosDatos;
 	}
+	
+	public String getEstado() {
+		return estado;
+	}
 
-	public Certificado(int id, String tipo, Date fechaSolicitud, Date fechaEntrega, User cliente, User arquitecto,
-			float precio, Vivienda vivienda, String otrosDatos) {
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public Certificado(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente, User arquitecto,
+			float precio, Vivienda vivienda, String estado, String otrosDatos) {
 		super();
 		this.id = id;
 		this.tipo = tipo;
@@ -133,6 +144,7 @@ public  abstract class Certificado {
 		this.arquitecto = arquitecto;
 		this.precio = precio;
 		this.vivienda = vivienda;
+		this.estado = estado;
 		this.otrosDatos = otrosDatos;
 	}
 
@@ -144,10 +156,11 @@ public  abstract class Certificado {
 	@Override
 	public String toString() {
 		return "Certificado [id=" + id + ", tipo=" + tipo + ", fechaSolicitud=" + fechaSolicitud + ", fechaEntrega="
-				+ fechaEntrega + ", cliente=" + cliente + ", arquitecto=" + arquitecto + ", precio=" + precio
-				+ ", vivienda=" + vivienda + ", otrosDatos=" + otrosDatos + "]";
+				+ fechaEntrega + ", cliente=" + cliente.getId() + ", arquitecto=" + arquitecto + ", precio=" + precio
+				+ ", vivienda=" + vivienda.getId() + ", estado=" + estado + ", otrosDatos=" + otrosDatos + "]";
 	}
-	
+
+
 	
 
 }

@@ -9,12 +9,25 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <form  action="formularioAgregarCertificado" method="get">
-	selecciona el tipo de certificado:
+SELECCIONA EL TIPO DE CERTIFICADO
+	<c:forEach var="item" items="${tiposCertificado}">
+		</br><input type="radio" name=tipo value="${item}" required="required"/> ${item.toString()} 
+	</c:forEach>
+</br>
+SELECCIONA LA  VIVIENDA
+	<table>
+		<c:forEach var="item" items="${viviendas}">
 			</br>
-	        <input type="radio" name=tipo value="certificado energetico"  required="required"/>Certificado Energético
-	        <input type="radio" name=tipo value="informe pericial" />Informe pericial
-	<input type="submit" value="Siguiente" />
+			<input type="radio" name=idVivienda value="${item.id}" id:> id:${item.id}  direccion:${item.direccion}
+		</c:forEach>
+	</table>	
+	</br>
+	<input type="submit" value="Solicitar el certificado" />
+	<a href="/tweb/viviendas/formularioAgregarVivienda"><button type="button">Añadir vivienda</button></a>
+	
+	${error}
 </form>
 </body>
 </html>

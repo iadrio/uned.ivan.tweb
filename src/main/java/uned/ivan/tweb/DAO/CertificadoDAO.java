@@ -11,6 +11,5 @@ public interface CertificadoDAO {
 	public void saveOrUpdate(Certificado proyecto) throws ConstraintViolationException;
 	public Certificado getCertificado(int id);
 	public List<Certificado> getCertificados();
-	public void assign();
 }
 

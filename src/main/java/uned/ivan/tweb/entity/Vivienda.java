@@ -1,5 +1,6 @@
 package uned.ivan.tweb.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -16,7 +17,7 @@ import javax.persistence.OneToMany;
 public class Vivienda {
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
@@ -24,10 +25,10 @@ public class Vivienda {
 	@JoinColumn(name="id_cliente")
 	private User cliente;
 	
-	@Column(name="tipo")
+	@Column(name="direccion")
 	private String direccion;
 	
-	@OneToMany(mappedBy="cliente",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@OneToMany(mappedBy="vivienda",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	private List<Certificado> certificados;
 
 	public int getId() {
@@ -77,10 +78,16 @@ public class Vivienda {
 
 	@Override
 	public String toString() {
-		return "Vivienda [id=" + id + ", cliente=" + cliente + ", direccion=" + direccion + ", certificados="
+		return "Vivienda [id=" + id + ", cliente=" + cliente.getId() + ", direccion=" + direccion + ", certificados="
 				+ certificados + "]";
 	}
 	
+	public void agregarCertificado(Certificado certificado) {
+		if(certificados == null) {
+			certificados = new ArrayList<Certificado>();
+		}
+		certificados.add(certificado);
+	}
 	
 	
 }

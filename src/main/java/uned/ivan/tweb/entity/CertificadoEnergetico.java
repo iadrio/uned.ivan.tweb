@@ -18,24 +18,27 @@ public class CertificadoEnergetico extends Certificado {
 		this.categoria = categoria;
 	}
 
-	public CertificadoEnergetico(int id, String tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
-			User arquitecto, float precio, Vivienda vivienda, String otrosDatos, String categoria) {
-		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, otrosDatos);
-		this.categoria = categoria;
-	}
+
 
 	public CertificadoEnergetico() {
 		super();
+		setTipo(TipoCertificado.CERTIFICADO_ENERGETICO);
 		// TODO Auto-generated constructor stub
 	}
 
-	public CertificadoEnergetico(int id, String tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
-			User arquitecto, float precio, Vivienda vivienda, String otrosDatos) {
-		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, otrosDatos);
+	public CertificadoEnergetico(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
+			User arquitecto, float precio, Vivienda vivienda, String estado, String otrosDatos) {
+		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, estado, otrosDatos);
+		setTipo(TipoCertificado.CERTIFICADO_ENERGETICO);
 		// TODO Auto-generated constructor stub
 	}
 
-
+	public CertificadoEnergetico(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
+			User arquitecto, float precio, Vivienda vivienda, String estado, String otrosDatos, String categoria) {
+		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, estado, otrosDatos);
+		this.categoria = categoria;
+		setTipo(TipoCertificado.CERTIFICADO_ENERGETICO);
+	}
 
 	@Override
 	public String toString() {

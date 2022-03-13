@@ -19,15 +19,15 @@ import javax.persistence.InheritanceType;
 @Entity
 public class Proyecto {
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="cliente_id")
 	private User cliente;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="arquitecto_id")
 	private User empleado;
 	
@@ -86,6 +86,8 @@ public class Proyecto {
 		return id;
 	}
 
+	
+	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -258,7 +260,7 @@ public class Proyecto {
 
 	@Override
 	public String toString() {
-		return "Proyecto [id=" + id + ", cliente=" + cliente + ", empleado=" + empleado + ", fechaSolicitud="
+		return "Proyecto [id=" + id + ", cliente=" + cliente.getId() + ", empleado=" + empleado + ", fechaSolicitud="
 				+ fechaSolicitud + ", fechaInicioConstruccion=" + fechaInicioConstruccion + ", duracionPrevista="
 				+ duracionPrevista + ", fechaFin=" + fechaFin + ", coste=" + coste + ", direccion=" + direccion
 				+ ", tipo=" + tipo + ", estado=" + estado + ", superficieTerreno=" + superficieTerreno
