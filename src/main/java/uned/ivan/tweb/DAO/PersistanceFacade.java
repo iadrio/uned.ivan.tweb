@@ -124,6 +124,8 @@ public class PersistanceFacade {
 	
 	//Operaciones con proyectos
 	public void añadirProyecto(Proyecto proyecto,User user) {
+		System.out.println("Proyecto " + proyecto);
+		System.out.println("User " + user);
 		proyecto.setFechaSolicitud(new Date());
 		proyecto.setEstado(EstadosProyecto.SOLICITADO.toString());	
 		user.agregarProyecto(proyecto);

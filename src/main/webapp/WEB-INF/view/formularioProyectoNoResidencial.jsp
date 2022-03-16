@@ -9,7 +9,7 @@
 </head>
 <body>
 	<form:form action="anadirProyecto" modelAttribute="proyecto" method="POST">
-	<input type="hidden" name="tipo" value="no residencial"/>
+	<form:hidden path="tipo" value ="${proyecto.tipo.name()}" />
 		<table>
 			<tr>
 				<td>superficie de terreno de la parcela: </td>

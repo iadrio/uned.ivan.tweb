@@ -17,9 +17,10 @@ import javax.persistence.InheritanceType;
 
 
 @Entity
-public class Proyecto {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class Proyecto {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.TABLE)
 	@Column(name="id")
 	private int id;
 	
@@ -47,47 +48,15 @@ public class Proyecto {
 	private float coste;
 	
 	@Column(name="tipo")
-	private String tipo;
+	private TipoProyecto tipo;
 	
 	@Column(name="estado")
 	private String estado;
-	
-	//Proyecto no residencial y residencial
-	@Column(name="direccion")
-	private String direccion;
-	
-	@Column(name="superficieTerreno")
-	private int superficieTerreno;
-	
-	@Column(name="superficieEdificio")
-	private int superficieEdificio;
-	
-	//Proyecto no residencial
-	
-	@Column(name="finalidad")
-	private String finalidad;
-	
-	//Proyecto rehabitliacion
-	@Column(name="superficieReforma")
-	private int superficieReforma;
-	
-	//Proyecto  residencial
-	
-	@Column(name="plantas")
-	private int plantas;
-	
-	@Column(name="habitaciones")
-	private int habitaciones;
-	
-	@Column(name="banhos")
-	private int banhos;
 
 	public int getId() {
 		return id;
 	}
 
-	
-	
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -148,19 +117,11 @@ public class Proyecto {
 		this.coste = coste;
 	}
 
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getTipo() {
+	public TipoProyecto getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoProyecto tipo) {
 		this.tipo = tipo;
 	}
 
@@ -172,68 +133,9 @@ public class Proyecto {
 		this.estado = estado;
 	}
 
-	public int getSuperficieTerreno() {
-		return superficieTerreno;
-	}
-
-	public void setSuperficieTerreno(int superficieTerreno) {
-		this.superficieTerreno = superficieTerreno;
-	}
-
-	public int getSuperficieEdificio() {
-		return superficieEdificio;
-	}
-
-	public void setSuperficieEdificio(int superficieEdificio) {
-		this.superficieEdificio = superficieEdificio;
-	}
-
-	public String getFinalidad() {
-		return finalidad;
-	}
-
-	public void setFinalidad(String finalidad) {
-		this.finalidad = finalidad;
-	}
-
-	public int getSuperficieReforma() {
-		return superficieReforma;
-	}
-
-	public void setSuperficieReforma(int superficieReforma) {
-		this.superficieReforma = superficieReforma;
-	}
-
-	public int getPlantas() {
-		return plantas;
-	}
-
-	public void setPlantas(int plantas) {
-		this.plantas = plantas;
-	}
-
-	public int getHabitaciones() {
-		return habitaciones;
-	}
-
-	public void setHabitaciones(int habitaciones) {
-		this.habitaciones = habitaciones;
-	}
-
-	public int getBanhos() {
-		return banhos;
-	}
-
-	public void setBanhos(int banhos) {
-		this.banhos = banhos;
-	}
-
-	public Proyecto(int id, User cliente, User empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
-			int duracionPrevista, Date fechaFin, float coste, String direccion, String tipo, String estado,
-			int superficieTerreno, int superficieEdificio, String finalidad, int superficieReforma, int plantas,
-			int habitaciones, int banhos) {
+	public Proyecto(User cliente, User empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
+			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, String estado) {
 		super();
-		this.id = id;
 		this.cliente = cliente;
 		this.empleado = empleado;
 		this.fechaSolicitud = fechaSolicitud;
@@ -241,16 +143,8 @@ public class Proyecto {
 		this.duracionPrevista = duracionPrevista;
 		this.fechaFin = fechaFin;
 		this.coste = coste;
-		this.direccion = direccion;
 		this.tipo = tipo;
 		this.estado = estado;
-		this.superficieTerreno = superficieTerreno;
-		this.superficieEdificio = superficieEdificio;
-		this.finalidad = finalidad;
-		this.superficieReforma = superficieReforma;
-		this.plantas = plantas;
-		this.habitaciones = habitaciones;
-		this.banhos = banhos;
 	}
 
 	public Proyecto() {
@@ -260,17 +154,9 @@ public class Proyecto {
 
 	@Override
 	public String toString() {
-		return "Proyecto [id=" + id + ", cliente=" + cliente.getId() + ", empleado=" + empleado + ", fechaSolicitud="
+		return "Proyecto [id=" + id + ", cliente=" + cliente.getId() + ", fechaSolicitud="
 				+ fechaSolicitud + ", fechaInicioConstruccion=" + fechaInicioConstruccion + ", duracionPrevista="
-				+ duracionPrevista + ", fechaFin=" + fechaFin + ", coste=" + coste + ", direccion=" + direccion
-				+ ", tipo=" + tipo + ", estado=" + estado + ", superficieTerreno=" + superficieTerreno
-				+ ", superficieEdificio=" + superficieEdificio + ", finalidad=" + finalidad + ", superficieReforma="
-				+ superficieReforma + ", plantas=" + plantas + ", habitaciones=" + habitaciones + ", banhos=" + banhos
-				+ "]";
+				+ duracionPrevista + ", fechaFin=" + fechaFin + ", coste=" + coste + ", tipo=" + tipo + ", estado="
+				+ estado + "]";
 	}
-	
-
-
-	
-	
 }

@@ -9,13 +9,14 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form  action="formularioAgregarProyecto" method="get">
-	selecciona el tipo de proyecto:
+	<form  action="formularioAgregarProyecto" method="get">
+		SELECCIONA EL TIPO DE PROYECTO
+			<c:forEach var="item" items="${tiposProyecto}">
+				</br><input type="radio" name=tipo value="${item}" required="required"/> ${item.toString()} 
+			</c:forEach>
 			</br>
-	        <input type="radio" name=tipo value="residencial"  required="required"/>Residencial
-	        <input type="radio" name=tipo value="no residencial" />No residencial
-	        <input type="radio" name=tipo value="rehabilitacion" />Rehabilitacion
-	<input type="submit" value="Siguiente" />
-</form>
+			<input type="submit" value="Solicitar el certificado" />
+		</br>
+	</form>
 </body>
 </html>

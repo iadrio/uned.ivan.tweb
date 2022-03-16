@@ -1,8 +1,12 @@
 package uned.ivan.tweb.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -16,8 +20,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import uned.ivan.tweb.DAO.PersistanceFacade;
 import uned.ivan.tweb.DAO.ProyectoDAO;
+import uned.ivan.tweb.entity.Certificado;
+import uned.ivan.tweb.entity.CertificadoEnergetico;
+import uned.ivan.tweb.entity.CertificadoHabitabilidad;
+import uned.ivan.tweb.entity.CertificadoInspeccionTecnica;
 import uned.ivan.tweb.entity.EstadosProyecto;
+import uned.ivan.tweb.entity.InformePericial;
 import uned.ivan.tweb.entity.Proyecto;
+import uned.ivan.tweb.entity.ProyectoNoResidencial;
+import uned.ivan.tweb.entity.ProyectoRehabilitacion;
+import uned.ivan.tweb.entity.ProyectoResidencial;
+import uned.ivan.tweb.entity.TipoCertificado;
+import uned.ivan.tweb.entity.TipoProyecto;
+import uned.ivan.tweb.entity.User;
 import uned.ivan.tweb.entity.UserSession;
 
 
@@ -38,22 +53,27 @@ public class ProjectController {
 	
 	@GetMapping("/formularioAgregarProyecto")
 	public String formularioAgregarProyecto(@RequestParam("tipo") String tipo, Model elModelo) {
-		Proyecto proyecto  = new Proyecto();
-		elModelo.addAttribute("proyecto", proyecto);
-		switch(tipo) {
-			case "residencial":
-				return "formularioProyectoResidencial";
-			case "no residencial":
-				return "formularioProyectoNoResidencial";
-			case "rehabilitacion":
-				return "formularioProyectoRehabilitacion";
-			default:
-				return "noImplementado";
-		}
+	    if (tipo!=null){
+	    	TipoProyecto type = TipoProyecto.valueOf(tipo);
+			switch(type) {
+				case RESIDENCIAL:
+					return "formularioProyectoResidencial";
+				case NO_RESIDENCIAL:
+					return "formularioProyectoNoResidencial";
+				case REHABILITACION:
+					return "formularioProyectoRehabilitacion";
+				default:
+					return "noImplementado";
+			}
+	    }else {
+	    	return "noImplementado";
+	    }
 	}
 	
 	@PostMapping("/anadirProyecto")
-	public String anadirProyectoResidencial(@ModelAttribute("proyecto") Proyecto proyecto,@ModelAttribute("tipo") String tipo) {
+	public String anadirProyecto(@ModelAttribute("proyecto") Proyecto proyecto,@ModelAttribute("tipo") String tipo,Model modelo) {
+		System.out.println("Modelo controller" + modelo);
+		System.out.println("Proyecto controller" + proyecto);
 		persistance.añadirProyecto(proyecto,session.getUser());
 		return "redirect:/usuarios/menu";	
 	}
@@ -70,16 +90,51 @@ public class ProjectController {
 	public String verProyecto(@RequestParam("proyectoId") int id,@RequestParam("tipo") String tipo, Model elModelo ) {
 		Proyecto proyecto = persistance.getProject(id);
 		elModelo.addAttribute("proyecto", proyecto);
-		switch(tipo) {
-			case "residencial":
-				return "fichaProyectoResidencial";
-			case "no residencial":
-				return "fichaProyectoNoResidencial";
-			case "rehabilitacion":
-				return "fichaProyectoRehabilitacion";
-			default:
-				return "noImplementado";
-		}
+		
+	    if (tipo!=null){
+	    	TipoProyecto type = TipoProyecto.valueOf(tipo);
+			switch(type) {
+				case RESIDENCIAL:
+					return "fichaProyectoResidencial";
+				case NO_RESIDENCIAL:
+					return "fichaProyectoNoResidencial";
+				case REHABILITACION:
+					return "fichaProyectoRehabilitacion";
+				default:
+					return "noImplementado";
+			}
+	    }else {
+	    	return "noImplementado";
+	    }
+	}
+	
+	
+	@ModelAttribute("proyecto")
+	public Proyecto getItem(final HttpServletRequest request, Model modelo){
+		String tipo = request.getParameter("tipo");
+		Proyecto proyecto=null;
+	    if (tipo!=null){
+	    	TipoProyecto type = TipoProyecto.valueOf(tipo);
+	    	switch(type) {
+	    	case RESIDENCIAL:
+	    		proyecto =  new ProyectoResidencial();
+	    		break;
+			case NO_RESIDENCIAL:
+				proyecto = new ProyectoNoResidencial();
+				break;
+			case REHABILITACION:
+				proyecto = new ProyectoRehabilitacion();
+				break;
+	    	}
+	    }
+	    return proyecto;
+   
+	}
+	
+	
+	@ModelAttribute("tiposProyecto")
+	public List<TipoProyecto> tiposProyecto(){
+		return Arrays.asList(TipoProyecto.values());
 	}
 
 }

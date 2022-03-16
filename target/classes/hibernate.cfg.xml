@@ -27,6 +27,9 @@
         <property name="hibernate.dbcp.maxWaitMillis">-1</property>
         <mapping class="uned.ivan.tweb.entity.User" />
         <mapping class="uned.ivan.tweb.entity.Proyecto" />
+        <mapping class="uned.ivan.tweb.entity.ProyectoResidencial" />
+        <mapping class="uned.ivan.tweb.entity.ProyectoNoResidencial" />
+        <mapping class="uned.ivan.tweb.entity.ProyectoRehabilitacion" />
         <mapping class="uned.ivan.tweb.entity.Certificado" />
         <mapping class="uned.ivan.tweb.entity.Vivienda" />
         <mapping class="uned.ivan.tweb.entity.CertificadoEnergetico" />
