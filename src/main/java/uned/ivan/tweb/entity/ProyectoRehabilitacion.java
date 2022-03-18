@@ -21,8 +21,6 @@ public class ProyectoRehabilitacion extends Proyecto{
 		this.superficieReforma = superficieReforma;
 	}
 	
-	
-
 	public String getDireccion() {
 		return direccion;
 	}
@@ -31,11 +29,9 @@ public class ProyectoRehabilitacion extends Proyecto{
 		this.direccion = direccion;
 	}
 
-
-
 	public ProyectoRehabilitacion(User cliente, User empleado, Date fechaSolicitud,
 			Date fechaInicioConstruccion, int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo,
-			String estado, int superficieReforma, String direccion) {
+			EstadosProyecto estado, int superficieReforma, String direccion) {
 		super(cliente, empleado, fechaSolicitud, fechaInicioConstruccion, duracionPrevista, fechaFin, coste, tipo,
 				estado);
 		this.superficieReforma = superficieReforma;
@@ -47,7 +43,7 @@ public class ProyectoRehabilitacion extends Proyecto{
 
 	public ProyectoRehabilitacion(User cliente, User empleado, Date fechaSolicitud,
 			Date fechaInicioConstruccion, int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo,
-			String estado) {
+			EstadosProyecto estado) {
 		super(cliente, empleado, fechaSolicitud, fechaInicioConstruccion, duracionPrevista, fechaFin, coste, tipo, estado);
 		setTipo(TipoProyecto.REHABILITACION);
 		// TODO Auto-generated constructor stub
@@ -69,7 +65,7 @@ public class ProyectoRehabilitacion extends Proyecto{
 
 	@Override
 	public String toString() {
-		return "ProyectoRehabilitacion [superficieReforma=" + superficieReforma + "]";
+		return super.toString() + "ProyectoRehabilitacion [superficieReforma=" + superficieReforma + "]";
 	}
 	
 	

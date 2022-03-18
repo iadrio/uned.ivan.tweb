@@ -47,7 +47,7 @@ public class UserController  {
 	@RequestMapping("/listaClientes")
 	public String listaClientes(Model elModelo){
 		elModelo.addAttribute("clientes", getClientes());
-		elModelo.addAttribute("userSession",session);
+		//elModelo.addAttribute("userSession",session);
 		return "listaClientes";
 	}
 	
@@ -62,8 +62,11 @@ public class UserController  {
 	public String menu(Model elModelo){
 		User user = session.getUser();
 		List<Proyecto> proyecto=persistance.getProyectos(user);
-		List<Proyecto> proyectosAsignados=persistance.getProyectosAsignados(user);
+		List<EstadosProyecto> filtroEstados = Arrays.asList(EstadosProyecto.ASIGNADO,EstadosProyecto.EN_CURSO,EstadosProyecto.PRESUPUESTADO,EstadosProyecto.SOLICITADO); 
+		List<Proyecto> proyectosAsignados=persistance.statusFilter(persistance.getProyectosAsignados(user),filtroEstados);
 		List<Proyecto> proyectosSinAsignar=persistance.getProyectosSinAsignar();
+		filtroEstados = Arrays.asList(EstadosProyecto.FINALIZADO); 
+		List<Proyecto> proyectosFinalizados=persistance.statusFilter(persistance.getProyectosAsignados(user),filtroEstados);
 		List<User> empleados= getEmpleados();
 		List<User> clients= getClientes();
 		List<Certificado> certificados= persistance.getCertificados(user);
@@ -76,6 +79,7 @@ public class UserController  {
 		elModelo.addAttribute("viviendas", viviendas);
 		elModelo.addAttribute("proyectosAsignados", proyectosAsignados);
 		elModelo.addAttribute("proyectosSinAsignar", proyectosSinAsignar);
+		elModelo.addAttribute("proyectosFinalizados", proyectosFinalizados);
 		
 		if(session.getUser() == null) {
 			return "redirect:/login/formularioLogin";
@@ -157,6 +161,12 @@ public class UserController  {
 	    return new ModelAndView("viewPDF", "Users", users);
 	  }
 
+	  
+	  @ModelAttribute("userSession")
+		public UserSession sesion(){
+			return session;
+		}
+	  
 	public List<User> getUsers(){
 		List<User> users =persistance.getUsers();
 		return users;

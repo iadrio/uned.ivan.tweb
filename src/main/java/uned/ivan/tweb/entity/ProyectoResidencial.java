@@ -74,7 +74,7 @@ public class ProyectoResidencial extends Proyecto{
 	}
 
 	public ProyectoResidencial(User cliente, User empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
-			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, String estado, String direccion,
+			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, EstadosProyecto estado, String direccion,
 			int superficieTerreno, int superficieEdificio, int plantas, int habitaciones, int banhos) {
 		super(cliente, empleado, fechaSolicitud, fechaInicioConstruccion, duracionPrevista, fechaFin, coste, tipo,
 				estado);
@@ -94,7 +94,7 @@ public class ProyectoResidencial extends Proyecto{
 	}
 
 	public ProyectoResidencial(User cliente, User empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
-			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, String estado) {
+			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, EstadosProyecto estado) {
 		super(cliente, empleado, fechaSolicitud, fechaInicioConstruccion, duracionPrevista, fechaFin, coste, tipo, estado);
 		setTipo(TipoProyecto.RESIDENCIAL);
 		// TODO Auto-generated constructor stub

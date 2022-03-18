@@ -124,17 +124,15 @@ public class PersistanceFacade {
 	
 	//Operaciones con proyectos
 	public void añadirProyecto(Proyecto proyecto,User user) {
-		System.out.println("Proyecto " + proyecto);
-		System.out.println("User " + user);
 		proyecto.setFechaSolicitud(new Date());
-		proyecto.setEstado(EstadosProyecto.SOLICITADO.toString());	
+		proyecto.setEstado(EstadosProyecto.SOLICITADO);	
 		user.agregarProyecto(proyecto);
 		proyecto.setCliente(user);
 		saveOrUpdateProject(proyecto);
 	}
 	
 	public void asignarProyecto(Proyecto proyecto,User user) {
-		proyecto.setEstado(EstadosProyecto.ASIGNADO.toString());	
+		proyecto.setEstado(EstadosProyecto.ASIGNADO);	
 		user.agregarProyecto(proyecto);
 		proyecto.setEmpleado(user);
 		saveOrUpdateProject(proyecto);
@@ -168,6 +166,16 @@ public class PersistanceFacade {
 		}else {
 			return new ArrayList<Proyecto>();
 		}
+	}
+	
+	public List<Proyecto> statusFilter(List<Proyecto> proyectos, List<EstadosProyecto> estados){
+		List<Proyecto> filteredProjects = new ArrayList();
+		for(Proyecto p: proyectos) {
+			if(estados.contains(p.getEstado())){
+				filteredProjects.add(p);
+			}
+		}
+		return filteredProjects;
 	}
 	
 	public List<Proyecto> getProyectosSinAsignar(){

@@ -39,4 +39,9 @@ public class ViviendaController {
 		return "redirect:/usuarios/menu";	
 	}
 	
+	@ModelAttribute("userSession")
+	public UserSession sesion(){
+		return session;
+	}
+	
 }

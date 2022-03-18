@@ -111,5 +111,10 @@ public class CertificateController {
 		return Arrays.asList(TipoCertificado.values());
 	}
 	
+	@ModelAttribute("userSession")
+	public UserSession sesion(){
+		return session;
+	}
+	
 
 }

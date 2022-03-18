@@ -52,7 +52,7 @@ public class ProyectoNoResidencial extends Proyecto{
 	}
 
 	public ProyectoNoResidencial(User cliente, User empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
-			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, String estado, String direccion,
+			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, EstadosProyecto estado, String direccion,
 			int superficieTerreno, int superficieEdificio, String finalidad) {
 		super(cliente, empleado, fechaSolicitud, fechaInicioConstruccion, duracionPrevista, fechaFin, coste, tipo,
 				estado);
@@ -70,7 +70,7 @@ public class ProyectoNoResidencial extends Proyecto{
 	}
 
 	public ProyectoNoResidencial(User cliente, User empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
-			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, String estado) {
+			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, EstadosProyecto estado) {
 		super(cliente, empleado, fechaSolicitud, fechaInicioConstruccion, duracionPrevista, fechaFin, coste, tipo, estado);
 		setTipo(TipoProyecto.NO_RESIDENCIAL);
 		// TODO Auto-generated constructor stub

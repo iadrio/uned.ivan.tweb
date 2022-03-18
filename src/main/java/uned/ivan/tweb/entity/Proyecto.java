@@ -51,7 +51,10 @@ public abstract class Proyecto {
 	private TipoProyecto tipo;
 	
 	@Column(name="estado")
-	private String estado;
+	private EstadosProyecto estado;
+	
+	@Column(name="notas")
+	private String notas;
 
 	public int getId() {
 		return id;
@@ -125,16 +128,26 @@ public abstract class Proyecto {
 		this.tipo = tipo;
 	}
 
-	public String getEstado() {
+	public EstadosProyecto getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadosProyecto estado) {
 		this.estado = estado;
+	}
+	
+	
+
+	public String getNotas() {
+		return notas;
+	}
+
+	public void setNotas(String notas) {
+		this.notas = notas;
 	}
 
 	public Proyecto(User cliente, User empleado, Date fechaSolicitud, Date fechaInicioConstruccion,
-			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, String estado) {
+			int duracionPrevista, Date fechaFin, float coste, TipoProyecto tipo, EstadosProyecto estado) {
 		super();
 		this.cliente = cliente;
 		this.empleado = empleado;
