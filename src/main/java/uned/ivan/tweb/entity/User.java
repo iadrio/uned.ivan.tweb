@@ -22,8 +22,8 @@ public class User {
 	@Column(name="usuario",unique=true)
 	private String usuario;
 	
-	@Column(name="contraseña")
-	private String contraseña;
+	@Column(name="contrasena")
+	private String contrasena;
 	
 	@Column(name="nombre")
 	private String nombre;
@@ -76,12 +76,12 @@ public class User {
 		this.usuario = usuario;
 	}
 
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
 
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 
 	public String getNombre() {
@@ -140,11 +140,11 @@ public class User {
 		this.rol = rol;
 	}
 
-	public User(String usuario, String contraseña, String nombre, String apellido1, String apellido2,
+	public User(String usuario, String contrasena, String nombre, String apellido1, String apellido2,
 			String telefono, String email, List<Proyecto> proyectos, String rol) {
 		super();
 		this.usuario = usuario;
-		this.contraseña = contraseña;
+		this.contrasena = contrasena;
 		this.nombre = nombre;
 		this.apellido1 = apellido1;
 		this.apellido2 = apellido2;
@@ -161,7 +161,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", usuario=" + usuario + ", contraseña=" + contraseña + ", nombre=" + nombre
+		return "User [id=" + id + ", usuario=" + usuario + ", contraseña=" + contrasena + ", nombre=" + nombre
 				+ ", apellido1=" + apellido1 + ", apellido2=" + apellido2 + ", telefono=" + telefono + ", email="
 				+ email + ", proyectos=" + proyectos + ", certificados=" + certificados + ", viviendas=" + viviendas
 				+ ", rol=" + rol + "]";

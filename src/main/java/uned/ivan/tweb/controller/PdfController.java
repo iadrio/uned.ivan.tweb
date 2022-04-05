@@ -50,7 +50,7 @@ public class PdfController extends AbstractPdfView {
 	    // adding rows
 	    for(User user : users) {
 	      table.addCell(user.getUsuario());
-	      table.addCell(user.getContraseña());
+	      table.addCell(user.getContrasena());
 	      table.addCell(user.getEmail());
 	    }
 	    // adding table to document

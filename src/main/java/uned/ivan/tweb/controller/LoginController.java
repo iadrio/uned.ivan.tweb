@@ -50,7 +50,7 @@ public class LoginController {
 
 		
 		User employee = userDao.getUser(userSession.getUsuario());
-		if(employee!=null&&employee.getContraseña().equals(userSession.getContraseña())){
+		if(employee!=null&&employee.getContrasena().equals(userSession.getContraseña())){
 			userSession.setRol(employee.getRol());
 			session.setUsuario(userSession.getUsuario());
 			session.setContraseña(userSession.getContraseña());

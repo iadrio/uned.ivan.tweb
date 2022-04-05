@@ -9,5 +9,7 @@
 <body>
 <a href="/tweb/usuarios/formularioAgregarCliente"><button type="button">Registrarse como cliente</button></a>
 <a href="/tweb/usuarios/formularioAgregarCliente"><button type="button">Iniciar sesion</button></a>
+
+
 </body>
 </html>

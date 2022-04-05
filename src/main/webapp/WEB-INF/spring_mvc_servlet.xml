@@ -42,7 +42,9 @@
     <!-- configure properties of aspect here as normal -->
 	</bean>
 	
-	
-
+	<mvc:annotation-driven />
+	<mvc:resources mapping="/webjars/**" location="/webjars/"/>
+	<mvc:resources mapping="/login/webjars/**" location="/webjars/"/>
+	<mvc:resources mapping="/usuarios/webjars/**" location="/webjars/"/>
 	
 </beans>

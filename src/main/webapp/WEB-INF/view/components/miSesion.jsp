@@ -1,35 +1,47 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+
 </head>
 <body>
-DATOS DE USUARIO
-	<table>
-	<tr>
-		<th>usuario: ${userSession.user.usuario}</th>
-	</tr>
-	<tr>
-		<th>nombre: ${userSession.user.nombre }</th>
-	</tr>
-	<tr>
-		<th>apellido1: ${userSession.user.apellido1 }</th>
-	</tr>
-	<tr>
-		<th>apellido2: ${userSession.user.apellido2 }</th>
-	</tr>
-	<tr>
-		<th>telefono: ${userSession.user.telefono }</th>
-	</tr>
-	<tr>
-		<th>email: ${userSession.user.email }</th>
-	</tr>
-	<tr>
-		<th>rol: ${userSession.user.rol }</th>
-	</tr>
-	</table>
+	<c:url var="linkActualizar" value="/usuarios/formularioActualizarCliente">
+		<c:param name="clienteId" value="${userSession.user.id}"/>
+	</c:url>
+<nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
+  <div class="container-fluid">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link active">USUARIO: ${userSession.user.usuario}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active">ROL: ${userSession.user.rol }</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active">NOMBRE: ${userSession.user.nombre}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active">${userSession.user.apellido1}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active">${userSession.user.apellido2}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active">CONTACTO: ${userSession.user.email}</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active">${userSession.user.telefono}</a>
+      </li>
+    </ul>
+    <ul class="d-flex navbar-nav">
+    	<a class="nav-link active" href="/tweb/login/formularioLogin">CAMBIAR DE USUARIO</a>
+	    <a class="nav-link active" href="${linkActualizar}">EDITAR MI USUARIO</a>
+    	<a class="nav-link active" href="/tweb/login/cerrarSession">CERRAR SESION</a>
+    </ul>
+  </div>
+</nav>
+
 </body>
 </html>
