@@ -15,7 +15,7 @@
 	    <ul class="navbar-nav">
 	    	<span class="navbar-text">MIS  CERTIFICADOS: </span>
 	      <li class="nav-item">
-	        <a class="nav-link active" href="/tweb/certificados/formularioSeleccionCertificado">SOLICITAR NUEVO CERTIFICADO</a>
+	        <a class="nav-link active" href="/tweb/certificados/formularioSeleccionCertificado">SOLICITAR NUEVO CERTIFICADO </a>
 	      </li>
 	    </ul>
 	  </div>
@@ -28,6 +28,7 @@
 					<th scope="col">TIPO</th>
 					<th scope="col">FECHA SOLICITUD</th>
 					<th scope="col">VIVIENDA</th>
+					<th scope="col">ESTADO</th>
 					<th scope="col"></th>
 				</tr>
 			</thead>
@@ -41,6 +42,7 @@
 					<td>${item.tipo.toString() }</td>
 					<td>${item.fechaSolicitud }</td>
 					<td>${item.vivienda.id }</td>
+					<td>${item.estado }</td>
 					<td><a href="${linkFichaCertificado}"><button type="button" class="btn btn-secondary">VER CERTIFICADO</button></a></td>
 				</tr>
 			</c:forEach>

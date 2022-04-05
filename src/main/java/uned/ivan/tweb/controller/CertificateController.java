@@ -59,6 +59,8 @@ public class CertificateController {
 		vivienda = (Vivienda) elModelo.getAttribute("vivienda");
 		certificado = (Certificado) elModelo.getAttribute("certificado");
 		if(vivienda==null) {
+			List<Vivienda> viviendas= persistance.getViviendas(session.getUser());
+			elModelo.addAttribute("viviendas", viviendas);
 			elModelo.addAttribute("error", "Debes seleccionar una vivienda. Si no tienes una registrada, debes registrar una primero.");
 			return "formularioSeleccionCertificado";
 		}else {

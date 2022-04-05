@@ -5,7 +5,7 @@
 <html>
 <head>
 <link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.css'>
-<title>Insert title here</title>
+<title>Login</title>
 </head>
 <body class="text-center">
 <div class="px-4 py-5 my-5 text-center ">
@@ -21,8 +21,8 @@
 	      <label for="floatingPassword">Password</label>
 	    </div>
 	    </br>
-	    <button class="w-50btn btn-lg btn-primary" type="submit" value="login">Login</button>
-	    <button class="w-50btn btn-lg btn-primary"><a class="text-decoration-none text-white" href="/tweb/usuarios/formularioAgregarCliente">Nuevo Cliente</a></button>
+	    <button class="w-50btn btn-lg btn-dark" type="submit" value="login">Login</button>
+	    <button class="w-50btn btn-lg btn-dark"><a class="text-decoration-none text-white" href="/tweb/usuarios/formularioAgregarCliente">Nuevo Cliente</a></button>
     </div>
   </form:form>
   </div>
