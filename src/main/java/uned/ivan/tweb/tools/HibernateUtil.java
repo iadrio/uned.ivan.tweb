@@ -21,10 +21,8 @@ public class HibernateUtil {
     		session.clear();
     	}
     		//session =  miFactory.getCurrentSession();
-    		return session;
-    	
-    	
-    	
+    	//session.clear();
+    	return session;	
     }
     
     public SessionFactory getSessionFactory() {

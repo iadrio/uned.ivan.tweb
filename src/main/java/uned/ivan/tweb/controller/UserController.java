@@ -155,7 +155,7 @@ public class UserController  {
 			return "redirect:/usuarios/menu";
 	}
 	
-	  @RequestMapping(value = "/viewPDF", method = RequestMethod.POST)
+	  @RequestMapping(value = "/viewPDF", method = RequestMethod.GET)
 	  public ModelAndView viewPDF() throws Exception{
 	    List<User> users = getClientes();
 	    return new ModelAndView("viewPDF", "Users", users);

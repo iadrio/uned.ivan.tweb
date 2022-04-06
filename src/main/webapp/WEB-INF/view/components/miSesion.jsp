@@ -13,29 +13,31 @@
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark">
   <div class="container-fluid">
     <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link active">USUARIO: ${userSession.user.usuario}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active">ROL: ${userSession.user.rol }</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active">NOMBRE: ${userSession.user.nombre}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active">${userSession.user.apellido1}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active">${userSession.user.apellido2}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active">CONTACTO: ${userSession.user.email}</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active">${userSession.user.telefono}</a>
-      </li>
+        <li class="nav-item">
+        	<a class="nav-link active">USUARIO: ${userSession.user.usuario}</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link active">ROL: ${userSession.user.rol }</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link active">NOMBRE: ${userSession.user.nombre}</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link active">${userSession.user.apellido1}</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link active">${userSession.user.apellido2}</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link active">CONTACTO: ${userSession.user.email}</a>
+        </li>
+        <li class="nav-item">
+        	<a class="nav-link active">${userSession.user.telefono}</a>
+        </li>
     </ul>
     <ul class="d-flex navbar-nav">
+    	<a class="nav-link active" href="/tweb/">INICIO</a>
+    	<a class="nav-link active" href="/tweb/usuarios/menu">MENU</a>
     	<a class="nav-link active" href="/tweb/login/formularioLogin">CAMBIAR DE USUARIO</a>
 	    <a class="nav-link active" href="${linkActualizar}">EDITAR MI USUARIO</a>
     	<a class="nav-link active" href="/tweb/login/cerrarSession">CERRAR SESION</a>

@@ -32,7 +32,7 @@ public class UsersDAOImpl implements UsersDAO, InitializingBean, DisposableBean 
 		Session miSession = hibernateUtil.getSession();
 		Transaction tx = miSession.beginTransaction();
 		try {
-			miSession.saveOrUpdate(user);
+			miSession.merge(user);
 			miSession.getTransaction().commit();
 		}catch(ConstraintViolationException e) {
 			tx.rollback();

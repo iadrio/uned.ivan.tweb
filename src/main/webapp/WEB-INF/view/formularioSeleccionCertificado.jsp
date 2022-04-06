@@ -5,29 +5,59 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.css'>
+<title>SELECCION DE CERTIFICADO</title>
 </head>
 <body>
+	<%@include file="components/miSesion.jsp" %>
 
 <form  action="formularioAgregarCertificado" method="get">
-SELECCIONA EL TIPO DE CERTIFICADO
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	  <div class="container-fluid">
+	    <ul class="navbar-nav">
+	    	<span class="navbar-text">SELECCIONA EL TIPO DE CERTIFICADO</span>
+	      <li class="nav-item">
+	      	<input class="btn btn-dark"  type="submit" value="SOLICITAR EL CERTIFICADO" />
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+
+
 	<c:forEach var="item" items="${tiposCertificado}">
-		</br><input type="radio" name=tipo value="${item}" required="required"/> ${item.toString()} 
+		<div class="text-sm-start px-4 py-2">
+			<input class="form-check-input" type="radio" name="tipo" id="${item}" value="${item}" required="required">
+			<label class="form-check-label" for="${item}">${item.toString()}</label>
+		</div>
 	</c:forEach>
-</br>
-SELECCIONA LA  VIVIENDA
-	<table>
+
+	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+	  <div class="container-fluid">
+	    <ul class="navbar-nav">
+	    	<span class="navbar-text">SELECCIONA LA  VIVIENDA</span>
+	      <li class="nav-item">
+	      	<a class="nav-link active" href="/tweb/viviendas/formularioAgregarVivienda">AÑADIR VIVIENDA </a>
+	      </li>
+	    </ul>
+	  </div>
+	</nav>
+
 		<c:forEach var="item" items="${viviendas}">
-			</br>
-			<input type="radio" name=idVivienda value="${item.id}" id:> id:${item.id}  direccion:${item.direccion}
+			<div class="px-4 py-2">
+					<input class="form-check-input" type="radio" name="idVivienda" id="${item.id}" value="${item.id}">
+					<label class="form-check-label" for="${item.id}">
+						<div class="row"> 
+							<div class="col">${item.direccion} (id vivienda:${item.id}) </div>
+						</div>
+					</label>
+			</div>
 		</c:forEach>
-	</table>	
-	</br>
-	<input type="submit" value="Solicitar el certificado" />
-	<a href="/tweb/viviendas/formularioAgregarVivienda"><button type="button">Añadir vivienda</button></a>
+		<c:if test = "${error!=null}">
+			<div class="alert alert-danger" role="alert">
+				${error}
+			</div>
+		</c:if>
 	
-	${error}
 </form>
 </body>
 </html>

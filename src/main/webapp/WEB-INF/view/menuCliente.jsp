@@ -27,7 +27,7 @@
 					<th scope="col">ID</th>
 					<th scope="col">TIPO</th>
 					<th scope="col">FECHA SOLICITUD</th>
-					<th scope="col">VIVIENDA</th>
+					<th scope="col">ID VIVIENDA</th>
 					<th scope="col">ESTADO</th>
 					<th scope="col"></th>
 				</tr>
