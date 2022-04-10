@@ -19,7 +19,7 @@ public class CertificadoInspeccionTecnica extends Certificado{
 	}
 
 	public CertificadoInspeccionTecnica(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
-			User arquitecto, float precio, Vivienda vivienda, String estado, String otrosDatos, Date fechaCaducidad) {
+			User arquitecto, float precio, Vivienda vivienda, EstadosCertificado estado, String otrosDatos, Date fechaCaducidad) {
 		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, estado, otrosDatos);
 		this.fechaCaducidad = fechaCaducidad;
 		setTipo(TipoCertificado.INSPECCION_TECNICA);
@@ -32,7 +32,7 @@ public class CertificadoInspeccionTecnica extends Certificado{
 	}
 
 	public CertificadoInspeccionTecnica(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
-			User arquitecto, float precio, Vivienda vivienda, String estado, String otrosDatos) {
+			User arquitecto, float precio, Vivienda vivienda, EstadosCertificado estado, String otrosDatos) {
 		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, estado, otrosDatos);
 		setTipo(TipoCertificado.INSPECCION_TECNICA);
 		// TODO Auto-generated constructor stub

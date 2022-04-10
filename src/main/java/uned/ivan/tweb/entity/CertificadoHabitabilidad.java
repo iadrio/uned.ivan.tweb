@@ -41,7 +41,7 @@ public class CertificadoHabitabilidad extends Certificado{
 	}
 
 	public CertificadoHabitabilidad(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
-			User arquitecto, float precio, Vivienda vivienda, String estado, String otrosDatos, Date fechaVisita,
+			User arquitecto, float precio, Vivienda vivienda, EstadosCertificado estado, String otrosDatos, Date fechaVisita,
 			Date fechaEmision, Date fechaCaducidad) {
 		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, estado, otrosDatos);
 		this.fechaVisita = fechaVisita;
@@ -57,7 +57,7 @@ public class CertificadoHabitabilidad extends Certificado{
 	}
 
 	public CertificadoHabitabilidad(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
-			User arquitecto, float precio, Vivienda vivienda, String estado, String otrosDatos) {
+			User arquitecto, float precio, Vivienda vivienda, EstadosCertificado estado, String otrosDatos) {
 		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, estado, otrosDatos);
 		setTipo(TipoCertificado.HABITABILIDAD);
 		// TODO Auto-generated constructor stub

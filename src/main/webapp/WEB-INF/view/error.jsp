@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.css'>
+<title>Error</title>
 </head>
-<body>
-	Parece que ha ocurrido un error. Vuelve a la ventana anterior para reintentarlo.
+<body class="text-center">
+	<div class="alert alert-danger px-4 py-5 my-5 text-center " role="alert">
+		Ha ocurrido un error. Vuelve a la ventana anterior para reintentarlo.
+	</div>
 </body>
 </html>

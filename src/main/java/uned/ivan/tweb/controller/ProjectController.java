@@ -165,7 +165,7 @@ public class ProjectController {
 	@ModelAttribute("proyecto")
 	public Proyecto getItem(final HttpServletRequest request, Model modelo){
 		String tipo = request.getParameter("tipo");
-		Proyecto proyecto=null;
+		Proyecto proyecto= null;
 	    if (tipo!=null){
 	    	TipoProyecto type = TipoProyecto.valueOf(tipo);
 	    	switch(type) {
@@ -181,7 +181,6 @@ public class ProjectController {
 	    	}
 	    }
 	    return proyecto;
-   
 	}
 	
 	

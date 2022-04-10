@@ -8,6 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<%@include file="components/miSesion.jsp" %> 
 	<%@include file="components/fichaProyecto.jsp" %> 
 	<table>
 		<tr>

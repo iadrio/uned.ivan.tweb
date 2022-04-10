@@ -47,8 +47,6 @@ public class LoginController {
 	
 	@PostMapping("/checkLogin")
 	public String checkLogin(@ModelAttribute("userSession") UserSession userSession,Model elModelo) {
-
-		
 		User employee = userDao.getUser(userSession.getUsuario());
 		if(employee!=null&&employee.getContrasena().equals(userSession.getContraseña())){
 			userSession.setRol(employee.getRol());
@@ -59,12 +57,13 @@ public class LoginController {
 			session.setUser(employee);
 			
 			elModelo.addAttribute("userSession", userSession);
+			System.out.println(elModelo);
 			return "redirect:/usuarios/menu";
+		}else {
+			elModelo.addAttribute("error", "Login incorrecto. Inténtalo de nuevo.");
+			System.out.println(elModelo);
+			return "formularioLogin";
 		}
-
-		
-		return "loginKo";
-
 	}
 		
 }

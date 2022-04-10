@@ -48,7 +48,7 @@ public  abstract class Certificado {
 	private Vivienda vivienda;
 	
 	@Column(name="estado")
-	private String estado;
+	private EstadosCertificado estado;
 	
 	@Column(name="otrosDatos")
 	private String otrosDatos;
@@ -125,16 +125,16 @@ public  abstract class Certificado {
 		this.otrosDatos = otrosDatos;
 	}
 	
-	public String getEstado() {
+	public EstadosCertificado getEstado() {
 		return estado;
 	}
 
-	public void setEstado(String estado) {
+	public void setEstado(EstadosCertificado estado) {
 		this.estado = estado;
 	}
 
 	public Certificado(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente, User arquitecto,
-			float precio, Vivienda vivienda, String estado, String otrosDatos) {
+			float precio, Vivienda vivienda, EstadosCertificado estado, String otrosDatos) {
 		super();
 		this.id = id;
 		this.tipo = tipo;

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +14,12 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	  <div class="container-fluid">
 	    <ul class="navbar-nav">
-	    	<span class="navbar-text">MIS  CERTIFICADOS: </span>
-	      <li class="nav-item">
-	        <a class="nav-link active" href="/tweb/certificados/formularioSeleccionCertificado">SOLICITAR NUEVO CERTIFICADO </a>
-	      </li>
+	    	<span class="navbar-text">MIS  CERTIFICADOS </span>
+	 
 	    </ul>
+	    <ul class="d-flex navbar-nav">
+		     <a class="nav-link active" href="/tweb/certificados/formularioSeleccionCertificado">SOLICITAR NUEVO CERTIFICADO </a>
+	     </ul>
 	  </div>
 	</nav>	
 	<div class="table-responsive">
@@ -43,7 +45,7 @@
 					<td>${item.fechaSolicitud }</td>
 					<td>${item.vivienda.id }</td>
 					<td>${item.estado }</td>
-					<td><a href="${linkFichaCertificado}"><button type="button" class="btn btn-secondary">VER CERTIFICADO</button></a></td>
+					<td class="text-end"><a href="${linkFichaCertificado}"><button type="button" class="btn btn-secondary">VER CERTIFICADO</button></a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -51,10 +53,10 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	  <div class="container-fluid">
 	    <ul class="navbar-nav">
-	    	<span class="navbar-text">MIS  PROYECTOS: </span>
-	      <li class="nav-item">
+	    	<span class="navbar-text">MIS  PROYECTOS </span>
+	    </ul>
+	   	<ul class="d-flex navbar-nav">
 	        <a class="nav-link active" href="/tweb/proyectos/formularioSeleccionProyecto">SOLICITAR NUEVO PROYECTO</a>
-	      </li>
 	    </ul>
 	  </div>
 	</nav>	
@@ -81,7 +83,7 @@
 					<td>${item.fechaSolicitud }</td>
 					<td>${item.estado }</td>
 					<td>${item.tipo }</td>
-					<td><a href="${linkFichaProyecto}"><button type="button" class="btn btn-secondary">VER PROYECTO</button></a></td>
+					<td class="text-end"><a href="${linkFichaProyecto}"><button type="button" class="btn btn-secondary">VER PROYECTO</button></a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -90,11 +92,18 @@
 	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	  <div class="container-fluid">
 	    <ul class="navbar-nav">
-	    	<span class="navbar-text">MIS  VIVIENDAS: </span>
-	      <li class="nav-item">
-	        <a class="nav-link active" href="/tweb/viviendas/formularioAgregarVivienda">AÑADIR VIVIENDA</a>
-	      </li>
+	    	<span class="navbar-text">MIS  VIVIENDAS </span>
 	    </ul>
+	    <form class="form-inline" action="/tweb/viviendas/anadirVivienda" method="get">
+	    	<div class="row">
+	    		<div class="col" >
+	    			<input class="form-control mr-sm-2" name="direccion" type="direccion" placeholder="direccion" aria-label="Search">
+			    </div>
+			   	<div class="col" >
+			    	<input class="btn btn-dark"  type="submit" value="AÑADIR VIVIENDA" />
+			    </div>
+		    </div>
+		</form>
 	  </div>
 	</nav>	 
 	<div class="table-responsive">
@@ -113,7 +122,7 @@
 				<tr>
 					<td>${item.id }</td>
 					<td>${item.direccion }</td>
-					<td><a href="${linkFichaVivienda}"><button type="button" class="btn btn-secondary">VER VIVIENDA</button></a></td>
+					<td class="text-end"><a href="${linkFichaVivienda}"><button type="button" class="btn btn-secondary">VER VIVIENDA</button></a></td>
 				</tr>
 			</c:forEach>
 		</table>

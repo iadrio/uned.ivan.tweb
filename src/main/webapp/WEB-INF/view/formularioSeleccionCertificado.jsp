@@ -23,7 +23,6 @@
 	  </div>
 	</nav>
 
-
 	<c:forEach var="item" items="${tiposCertificado}">
 		<div class="text-sm-start px-4 py-2">
 			<input class="form-check-input" type="radio" name="tipo" id="${item}" value="${item}" required="required">
@@ -35,16 +34,13 @@
 	  <div class="container-fluid">
 	    <ul class="navbar-nav">
 	    	<span class="navbar-text">SELECCIONA LA  VIVIENDA</span>
-	      <li class="nav-item">
-	      	<a class="nav-link active" href="/tweb/viviendas/formularioAgregarVivienda">AÑADIR VIVIENDA </a>
-	      </li>
 	    </ul>
 	  </div>
 	</nav>
 
 		<c:forEach var="item" items="${viviendas}">
 			<div class="px-4 py-2">
-					<input class="form-check-input" type="radio" name="idVivienda" id="${item.id}" value="${item.id}">
+					<input class="form-check-input" type="radio" name="idVivienda" id="${item.id}" value="${item.id}" required="required">
 					<label class="form-check-label" for="${item.id}">
 						<div class="row"> 
 							<div class="col">${item.direccion} (id vivienda:${item.id}) </div>

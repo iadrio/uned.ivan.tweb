@@ -14,7 +14,7 @@ public class InformePericial extends Certificado{
 	}
 
 	public InformePericial(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
-			User arquitecto, float precio, Vivienda vivienda, String estado, String otrosDatos) {
+			User arquitecto, float precio, Vivienda vivienda, EstadosCertificado estado, String otrosDatos) {
 		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, estado, otrosDatos);
 		setTipo(TipoCertificado.INFORME_PERICIAL);
 		// TODO Auto-generated constructor stub

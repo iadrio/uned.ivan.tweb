@@ -139,6 +139,16 @@ public class User {
 	public void setRol(String rol) {
 		this.rol = rol;
 	}
+	
+	
+
+	public List<Certificado> getCertificados() {
+		return certificados;
+	}
+
+	public void setCertificados(List<Certificado> certificados) {
+		this.certificados = certificados;
+	}
 
 	public User(String usuario, String contrasena, String nombre, String apellido1, String apellido2,
 			String telefono, String email, List<Proyecto> proyectos, String rol) {

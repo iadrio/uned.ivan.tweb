@@ -28,6 +28,7 @@ import uned.ivan.tweb.entity.Certificado;
 import uned.ivan.tweb.entity.CertificadoEnergetico;
 import uned.ivan.tweb.entity.CertificadoHabitabilidad;
 import uned.ivan.tweb.entity.CertificadoInspeccionTecnica;
+import uned.ivan.tweb.entity.EstadosCertificado;
 import uned.ivan.tweb.entity.EstadosProyecto;
 import uned.ivan.tweb.entity.InformePericial;
 import uned.ivan.tweb.entity.Proyecto;
@@ -71,6 +72,7 @@ public class CertificateController {
 	
 	@PostMapping("/anadirCertificado")
 	public String anadirCertificado(@ModelAttribute("certificado") Certificado certificado,@ModelAttribute("vivienda") Vivienda vivienda) {
+		certificado.setEstado(EstadosCertificado.SOLICITADO);
 		persistance.añadirCertificado(certificado,session.getUser(),vivienda);
 		return "redirect:/usuarios/menu";	
 	}

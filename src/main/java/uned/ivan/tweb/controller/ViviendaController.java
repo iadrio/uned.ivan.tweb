@@ -33,8 +33,10 @@ public class ViviendaController {
 		return "formularioVivienda";
 	}
 	
-	@PostMapping("/anadirVivienda")
-	public String anadirVivienda(@ModelAttribute("vivienda") Vivienda vivienda,Model elModelo) {
+	@GetMapping("/anadirVivienda")
+	public String anadirVivienda(@RequestParam("direccion") String direccion) {
+		Vivienda vivienda = new Vivienda();
+		vivienda.setDireccion(direccion);
 		persistance.añadirVivienda(vivienda,session.getUser());
 		return "redirect:/usuarios/menu";	
 	}
