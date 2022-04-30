@@ -4,12 +4,11 @@ public enum EstadosCertificado {
 	SOLICITADO("solicitado"),
 	ASIGNADO("asignado"),
 	PRESUPUESTADO("presupuestado"),
-	PENDIENTE_VISITA("pendiente visita"),
-	EN_CURSO("en curso"),
+	VISITA_REALIZADA("visita realizada"),
 	FINALIZADO("finalizado"),
-	CADUCADO("caducado"),
 	CADUCADO_SIN_RENOVAR("caducado sin renovar"),
-	CADUCADO_RENOVACION_SOLICITADA("caducado con renovación solicitada");
+	CADUCADO_RENOVACION_SOLICITADA("caducado con renovación solicitada"),
+	CANCELADO("cancelado");
 	
 	private String name;
 	

@@ -1,6 +1,8 @@
 package uned.ivan.tweb.entity;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,14 +14,17 @@ import javax.persistence.Inheritance;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.SequenceGenerator;
+import javax.validation.constraints.*;
 import javax.persistence.InheritanceType;
 
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 public  abstract class Certificado {
 	//Comunes
 	@Id
-	@GeneratedValue(strategy=GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "certificados")
+    @SequenceGenerator(name="certificados", sequenceName = "certificados")
 	@Column(name="id")
 	private int id;
 	
@@ -37,9 +42,9 @@ public  abstract class Certificado {
 	private User cliente;
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
-	@JoinColumn(name="id_arquiteecto")
+	@JoinColumn(name="id_arquitecto")
 	private User arquitecto;
-	
+
 	@Column(name="precio")
 	private float precio;
 	
@@ -52,6 +57,7 @@ public  abstract class Certificado {
 	
 	@Column(name="otrosDatos")
 	private String otrosDatos;
+	
 
 	public int getId() {
 		return id;
@@ -160,7 +166,101 @@ public  abstract class Certificado {
 				+ ", vivienda=" + vivienda.getId() + ", estado=" + estado + ", otrosDatos=" + otrosDatos + "]";
 	}
 
-
+	
+	public void setEmpleado(User user) {
+		this.arquitecto = user;
+	}
 	
 
+	public void presupuestar(float coste) throws Exception{
+		if(esPresupuestable()) {
+			this.setPrecio(coste);
+			this.setEstado(EstadosCertificado.PRESUPUESTADO);
+		}else {
+			throw new Exception("Estado no permitido " + this.estado);
+		}
+	}
+	
+
+	public void visitar() throws Exception{
+		if(esVisitable()) {
+			this.setEstado(EstadosCertificado.VISITA_REALIZADA);
+		}else {
+			throw new Exception("Estado no permitido " + this.estado);
+		}
+	}
+	
+	public void cancelar() throws Exception{
+		if(esCancelable()) {
+			this.setEstado(EstadosCertificado.CANCELADO);
+		}else {
+			throw new Exception("Estado no permitido " + this.estado);
+		}
+	}
+	
+	public void finalizar() throws Exception{
+		if(esFinalizable()) {
+			this.setEstado(EstadosCertificado.FINALIZADO);
+			this.setFechaEntrega(new Date());
+		}else {
+			throw new Exception("Estado no permitido " + this.estado);
+		}
+	}
+	
+	public void asignar(User user) throws Exception{
+		if(esEditable()) {
+			user.agregarCertificado(this);
+			this.setEmpleado(user);
+			this.setEstado(EstadosCertificado.ASIGNADO);
+		}else {
+			throw new Exception("Estado no permitido " + this.estado);
+		}
+	}
+	
+	public  boolean esFinalizable() {
+		List<EstadosCertificado> estadosPermitidos = Arrays.asList(EstadosCertificado.PRESUPUESTADO);
+		if(estadosPermitidos.contains(this.estado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public  boolean esCancelable() {
+		List<EstadosCertificado> estadosPermitidos = Arrays.asList(EstadosCertificado.SOLICITADO,EstadosCertificado.ASIGNADO,EstadosCertificado.PRESUPUESTADO);
+		if(estadosPermitidos.contains(this.estado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean esVisitable() {
+		List<EstadosCertificado> estadosPermitidos = Arrays.asList();
+		if(estadosPermitidos.contains(this.estado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean esPresupuestable() {
+		List<EstadosCertificado> estadosPermitidos = Arrays.asList(EstadosCertificado.ASIGNADO);
+		if(estadosPermitidos.contains(this.estado)) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public boolean esEditable() {
+		List<EstadosCertificado> estadosProhibidos = Arrays.asList(EstadosCertificado.CANCELADO,EstadosCertificado.FINALIZADO);
+		if(estadosProhibidos.contains(this.estado)) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
+	public abstract boolean isExpirable();
 }

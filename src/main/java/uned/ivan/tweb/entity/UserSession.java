@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Scope(value="session", proxyMode=ScopedProxyMode.TARGET_CLASS)
 public class UserSession {
 	private String usuario;
-	private String contraseña;
+	private String contrasena;
 	private String rol;
 	private boolean empleado;
 	private User user;
@@ -32,11 +32,11 @@ public class UserSession {
 	public void setUsuario(String usuario) {
 		this.usuario = usuario;
 	}
-	public String getContraseña() {
-		return contraseña;
+	public String getContrasena() {
+		return contrasena;
 	}
-	public void setContraseña(String contraseña) {
-		this.contraseña = contraseña;
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
 	}
 	public String getRol() {
 		return rol;
@@ -52,7 +52,7 @@ public class UserSession {
 	public UserSession(String usuario, String contraseña, String rol, boolean empleado,User user) {
 		super();
 		this.usuario = usuario;
-		this.contraseña = contraseña;
+		this.contrasena = contraseña;
 		this.rol = rol;
 		this.empleado = empleado;
 		this.user = user;
@@ -61,13 +61,13 @@ public class UserSession {
 	
 	@Override
 	public String toString() {
-		return "UserSession [usuario=" + usuario + ", contraseña=" + contraseña + ", rol=" + rol + ", empleado="
+		return "UserSession [usuario=" + usuario + ", contraseña=" + contrasena + ", rol=" + rol + ", empleado="
 				+ empleado + ", user=" + user + "]";
 	}
 	
 	public void reset() {
 		usuario = null;
-		contraseña = null;
+		contrasena = null;
 		rol = null;
 		user = null;
 	}

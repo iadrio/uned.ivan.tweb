@@ -1,8 +1,11 @@
 package uned.ivan.tweb.DAO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.NoResultException;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -14,8 +17,13 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import uned.ivan.tweb.entity.Certificado;
+import uned.ivan.tweb.entity.CertificadoEnergetico;
+import uned.ivan.tweb.entity.CertificadoHabitabilidad;
+import uned.ivan.tweb.entity.CertificadoInspeccionTecnica;
+import uned.ivan.tweb.entity.EstadosCertificado;
 import uned.ivan.tweb.entity.EstadosProyecto;
 import uned.ivan.tweb.entity.Proyecto;
+import uned.ivan.tweb.entity.TipoCertificado;
 import uned.ivan.tweb.entity.User;
 import uned.ivan.tweb.entity.Vivienda;
 
@@ -50,6 +58,18 @@ public class PersistanceFacade {
 	//Operaciones con certificados
 	public void saveOrUpdateCertificado(Certificado certificado) throws ConstraintViolationException {
 		certificadoEnergeticoDAOImpl.saveOrUpdate(certificado);
+	}
+	
+	public Certificado getCertificado(int id) {
+		List<Certificado> certificados =  getCertificados();
+		
+		for(Certificado c: certificados) {
+			if(c.getId() == id) {
+				return c;
+			}
+		}
+		
+		return null;
 	}
 	
 	public List<Certificado> getCertificadosEnergeticos() {
@@ -95,7 +115,34 @@ public class PersistanceFacade {
 		certificados.addAll(getCertificadosHabitabilidad());
 		certificados.addAll(getCertificadosInspeccionTecnica());
 		return certificados;
-	}
+	}	
+	
+	public List<Certificado> getCertificadosCaducados() {
+		List<Certificado> certificados = getCertificados();
+		List<Certificado> certificadosCaducados = new ArrayList<Certificado>();
+		for(Certificado cert: certificados){
+			if(cert.isExpirable()&&cert.getEstado().equals(EstadosCertificado.FINALIZADO)) {
+				Date fechaCaducidad;
+				TipoCertificado type = cert.getTipo();
+				switch(type) {
+				case HABITABILIDAD:
+					fechaCaducidad = ((CertificadoHabitabilidad) cert).getFechaCaducidad();
+					break;
+				case INSPECCION_TECNICA:
+					fechaCaducidad = ((CertificadoInspeccionTecnica) cert).getFechaCaducidad();
+					break;
+				default:
+					fechaCaducidad = new Date();
+					break;
+				}
+				if(fechaCaducidad!=null&&fechaCaducidad.before(new Date())) {
+					System.out.println(fechaCaducidad + " es anterior a " + new Date());
+					certificadosCaducados.add(cert);
+				}
+			}
+		}
+		return certificadosCaducados;
+	}	
 	
 	public void añadirCertificado(Certificado certificado,User user,Vivienda vivienda) {
 		certificado.setFechaSolicitud(new Date());
@@ -105,7 +152,7 @@ public class PersistanceFacade {
 		certificado.setVivienda(vivienda);
 		saveOrUpdateCertificado(certificado);
 	}
-	
+		
 	public List<Certificado> getCertificados(User user){
 		if(user!=null) {
 			List<Certificado> certificados =  new ArrayList<Certificado>();
@@ -121,20 +168,25 @@ public class PersistanceFacade {
 		}
 	}
 	
-	
 	//Operaciones con proyectos
 	public void añadirProyecto(Proyecto proyecto,User user) {
-		proyecto.setFechaSolicitud(new Date());
-		proyecto.setEstado(EstadosProyecto.SOLICITADO);	
-		user.agregarProyecto(proyecto);
 		proyecto.setCliente(user);
-		saveOrUpdateProject(proyecto);
-	}
-	
-	public void asignarProyecto(Proyecto proyecto,User user) {
-		proyecto.setEstado(EstadosProyecto.ASIGNADO);	
+		Vivienda vivienda;
+		try {
+			vivienda = getVivienda(Integer.parseInt(proyecto.getDireccion()));
+			if(vivienda==null){
+				vivienda = proyecto.getVivienda();
+			}
+		}catch(NumberFormatException e) {
+			vivienda = proyecto.getVivienda();
+		}
+		
+		if(vivienda!=null) {
+			proyecto.setVivienda(vivienda);
+			vivienda.setCliente(user);
+			vivienda.agregarProyecto(proyecto);
+		}
 		user.agregarProyecto(proyecto);
-		proyecto.setEmpleado(user);
 		saveOrUpdateProject(proyecto);
 	}
 	
@@ -152,6 +204,22 @@ public class PersistanceFacade {
 			return new ArrayList<Proyecto>();
 		}
 	}
+	
+	public List<Proyecto> getProyectosCandidadosInspeccionTecnica(){
+		List<Proyecto> proyectos = proyectoDAOImpl.getProjects();
+		List<Proyecto> proyectosCandidatos = new ArrayList<Proyecto>();
+		Calendar c = Calendar.getInstance();
+		c.setTime(new Date());
+		c.add(Calendar.DATE,-16425);
+		
+		for(Proyecto proyecto: proyectoDAOImpl.getProjects()) {
+			if(proyecto.getFechaFin()!=null&&c.getTime().after(proyecto.getFechaFin())&&proyecto.getEstado().equals(EstadosProyecto.FINALIZADO)) {
+				proyectosCandidatos.add(proyecto);
+			}
+		}
+		return proyectosCandidatos;
+	} 
+	
 	
 	public List<Proyecto> getProyectosAsignados(User user){
 		if(user!=null) {
@@ -176,16 +244,6 @@ public class PersistanceFacade {
 			}
 		}
 		return filteredProjects;
-	}
-	
-	public List<Proyecto> getProyectosSinAsignar(){
-		List<Proyecto> proyectos =  new ArrayList<Proyecto>();
-		for(Proyecto proyecto: proyectoDAOImpl.getProjects()) {
-			if(proyecto.getEmpleado()==null) {
-				proyectos.add(proyecto);
-			}
-		}
-		return proyectos;
 	}
 	
 	public void saveOrUpdateProject(Proyecto proyecto) throws ConstraintViolationException {
@@ -257,10 +315,12 @@ public class PersistanceFacade {
 	public List<Vivienda> getViviendas(User user){
 		if(user!=null) {
 			List<Vivienda> viviendas =  new ArrayList<Vivienda>();
-			int idCliente = user.getId();
-			for(Vivienda vivienda: viviendaDAOImpl.getViviendas()) {
-				if(vivienda.getCliente().getId()==idCliente) {
-					viviendas.add(vivienda);
+			if(viviendaDAOImpl.getViviendas()!=null) {
+				int idCliente = user.getId();
+				for(Vivienda vivienda: viviendaDAOImpl.getViviendas()) {
+					if(vivienda.getCliente().getId()==idCliente) {
+						viviendas.add(vivienda);
+					}
 				}
 			}
 			return viviendas;

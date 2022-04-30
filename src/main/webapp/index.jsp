@@ -13,8 +13,9 @@
       <p class="lead mb-4">Aplicaci&oacuten realizada como proyecto educativo para la asignatura de Tecnolog&iacuteas Web de la UNED.</p>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <a href="/tweb/login/formularioLogin" class="btn btn-dark btn-lg px-4 gap-3" role="button">Iniciar aplicaci&oacuten</a>
-        <a href="/tweb/login/formularioLogin" class="btn btn-dark btn-lg px-4 gap-3" role="button">Descargar memoria</a>
-        <a href="/tweb/login/formularioLogin" class="btn btn-dark btn-lg px-4 gap-3" role="button">Ver intro</a>
+        <a href="/tweb/login/verEnunciado" class="btn btn-dark btn-lg px-4 gap-3" role="button">Ver Enunciado</a>
+        <a href="/tweb/login/verMemoria" class="btn btn-dark btn-lg px-4 gap-3" role="button">Ver Memoria</a>
+        <a href="/tweb/login/verManual" class="btn btn-dark btn-lg px-4 gap-3" role="button">Ver Manual</a>
       </div>
     </div>
   </div>

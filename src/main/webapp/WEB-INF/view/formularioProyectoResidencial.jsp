@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,28 +19,28 @@
 		<div class="row">
 		    <div class="col-3">
 	    	    <label for="direccion" class="form-label">Direccion de la vivienda</label>
-			    <form:input path="direccion" type="text" id="direccion" class="form-control"/>
+			    <form:input type="text" path="direccion" id="direccion" class="form-control"/>
 		    </div>
 		    <div class="col" >
-	    	    <label for="superficieTerreno" class="form-label">Superficie del terreno de la parecela</label>
+	    	    <label for="superficieTerreno" class="form-label">Superficie del terreno de la parecela(m2)</label>
 			    <form:input path="superficieTerreno" type="text" id="superficieTerreno" class="form-control"/>
 		    </div>
 		    <div class="col">
-		    	<label for="superficieEdificio" class="form-label">Superficie de terreno que se quiere construir</label>
+		    	<label for="superficieEdificio" class="form-label">Superficie de terreno que se quiere construir(m2)</label>
    				<form:input path="superficieEdificio" type="superficieEdificio" class="form-control" id="usuario"/>
 		    </div>
 		</div>
 		<div class="row">
 		    <div class="col-3">
-	    	    <label for="plantas" class="form-label">Número de plantas</label>
+	    	    <label for="plantas" class="form-label">NÃºmero de plantas</label>
 			    <form:input path="plantas" type="text" id="plantas" class="form-control"/>
 		    </div>
 		    <div class="col" >
-	    	    <label for="habitaciones" class="form-label">Número de habitaciones</label>
+	    	    <label for="habitaciones" class="form-label">NÃºmero de habitaciones</label>
 			    <form:input path="habitaciones" type="text" id="habitaciones" class="form-control"/>
 		    </div>
 		    <div class="col">
-		    	<label for="banhos" class="form-label">Número de baños</label>
+		    	<label for="banhos" class="form-label">NÃºmero de baÃ±os</label>
    				<form:input path="banhos" type="banhos" class="form-control" id="usuario"/>
 		    </div>
 		</div>
@@ -54,5 +54,10 @@
 		</div>
 	</form:form>
 </div>
+	<c:if test = "${error!=null}">
+		<div class="alert alert-danger" role="alert">
+			${error}
+		</div>
+	</c:if>
 </body>
 </html>

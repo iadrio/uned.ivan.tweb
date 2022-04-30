@@ -2,6 +2,7 @@ package uned.ivan.tweb.DAO;
 
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.validation.ConstraintViolationException;
 
 import org.hibernate.Session;
@@ -36,11 +37,16 @@ public class ViviendaDAOImpl implements ViviendaDAO{
 	@Override
 	public Vivienda getVivienda(int id) {
 		Session miSession = hibernateUtil.getSession();
-		miSession.beginTransaction();		
-		Query<Vivienda> miQuery = miSession.createQuery("from Vivienda c where c.id = :id", Vivienda.class).setParameter("id", id);
-		Vivienda vivienda = miQuery.getSingleResult();
-		miSession.getTransaction().commit();		
-		return vivienda;
+		Transaction tx = miSession.beginTransaction();
+		try {	
+			Query<Vivienda> miQuery = miSession.createQuery("from Vivienda c where c.id = :id", Vivienda.class).setParameter("id", id);
+			Vivienda vivienda = miQuery.getSingleResult();
+			miSession.getTransaction().commit();		
+			return vivienda;
+		}catch(NoResultException e){
+			tx.rollback();
+			return null;
+		}
 	}
 
 	@Override

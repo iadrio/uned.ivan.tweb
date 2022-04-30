@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.*;
 
 @Entity
 public class Vivienda {
@@ -25,11 +26,15 @@ public class Vivienda {
 	@JoinColumn(name="id_cliente")
 	private User cliente;
 	
+	@NotBlank 
 	@Column(name="direccion")
 	private String direccion;
 	
 	@OneToMany(mappedBy="vivienda",cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.DETACH,CascadeType.REFRESH})
 	private List<Certificado> certificados;
+	
+	@OneToMany(mappedBy="vivienda",cascade = {CascadeType.ALL})
+	private List<Proyecto> proyectos;
 
 	public int getId() {
 		return id;
@@ -62,6 +67,16 @@ public class Vivienda {
 	public void setCertificados(List<Certificado> certificados) {
 		this.certificados = certificados;
 	}
+	
+	
+
+	public List<Proyecto> getProyectos() {
+		return proyectos;
+	}
+
+	public void setProyectos(List<Proyecto> proyectos) {
+		this.proyectos = proyectos;
+	}
 
 	public Vivienda(int id, User cliente, String direccion, List<Certificado> certificados) {
 		super();
@@ -78,7 +93,7 @@ public class Vivienda {
 
 	@Override
 	public String toString() {
-		return "Vivienda [id=" + id + ", cliente=" + cliente.getId() + ", direccion=" + direccion + ", certificados="
+		return "Vivienda [id=" + id + ", cliente=" + cliente + ", direccion=" + direccion + ", certificados="
 				+ certificados + "]";
 	}
 	
@@ -87,6 +102,13 @@ public class Vivienda {
 			certificados = new ArrayList<Certificado>();
 		}
 		certificados.add(certificado);
+	}
+	
+	public void agregarProyecto(Proyecto proyecto) {
+		if(proyectos == null) {
+			proyectos = new ArrayList<Proyecto>();
+		}
+		proyectos.add(proyecto);
 	}
 	
 	

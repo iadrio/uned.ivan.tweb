@@ -1,5 +1,6 @@
 package uned.ivan.tweb.entity;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,6 +10,8 @@ import javax.persistence.Entity;
 public class CertificadoInspeccionTecnica extends Certificado{
 	@Column(name="fechaCaducidad")
 	private Date fechaCaducidad;
+	
+	private int diasVigencia = 16425; //45 años
 
 	public Date getFechaCaducidad() {
 		return fechaCaducidad;
@@ -43,5 +46,17 @@ public class CertificadoInspeccionTecnica extends Certificado{
 		return "CertificadoInspeccionTecnica [fechaCaducidad=" + fechaCaducidad + "]";
 	}
 	
+	@Override
+	public void finalizar() throws Exception{
+		Calendar c = Calendar.getInstance();
+		super.finalizar();
+		c.setTime(getFechaEntrega());
+		c.add(Calendar.DATE,diasVigencia);
+		setFechaCaducidad(c.getTime());
+	}
+	
+	public boolean isExpirable() {
+		return true;
+	}
 	
 }

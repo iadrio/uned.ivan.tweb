@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,17 +17,25 @@
 		<h4>INTRODUCE LOS DATOS DEL PROYECTO</h4>
 		</br>
 		<div class="row">
-		    <div class="col-3">
-	    	    <label for="superficieTerreno" class="form-label">Superficie de terreno de la parcela</label>
+		    <div class="col">
+	    	    <label for="superficieTerreno" class="form-label">Superficie de terreno de la parcela(m2)</label>
 			    <form:input path="superficieTerreno" type="text" id="superficieTerreno" class="form-control"/>
 		    </div>
 		    <div class="col" >
-	    	    <label for="superficieEdificio" class="form-label">Superficie del edificio</label>
+	    	    <label for="superficieEdificio" class="form-label">Superficie del edificio(m2)</label>
 			    <form:input path="superficieEdificio" type="text" id="superficieEdificio" class="form-control"/>
 		    </div>
+		</div>
+		<div class="row">
 		    <div class="col">
 		    	<label for="finalidad" class="form-label">Finalidad de la obra</label>
    				<form:input path="finalidad" type="finalidad" class="form-control" id="usuario"/>
+		    </div>
+		</div>
+		<div class="row">
+			<div class="col">
+	    	    <label for="direccion" class="form-label">Dirección del proyecto</label>
+			    <form:input type="text" path="direccion" id="direccion" class="form-control"/>
 		    </div>
 		</div>
 		<div class="row"><div class="col"></br></div></div>
@@ -40,6 +48,10 @@
 		</div>
 	</form:form>
 </div>
-
+	<c:if test = "${error!=null}">
+		<div class="alert alert-danger" role="alert">
+			${error}
+		</div>
+	</c:if>
 </body>
 </html>

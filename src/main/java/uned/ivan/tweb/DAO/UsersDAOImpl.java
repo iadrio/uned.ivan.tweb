@@ -91,11 +91,11 @@ public class UsersDAOImpl implements UsersDAO, InitializingBean, DisposableBean 
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		User employee = new User("admin","admin",null,null,null,null,"admin@admin.es",null, null);
+		User employee = new User("admin","admin","administrador","chuli",null,"660633998","admin@admin.es",null, null);
 		employee.setRol(Roles.ADMINISTRADOR.toString());
-		User customer = new User("user","user",null,null,null,null,"user@user.es",null, null);
+		User customer = new User("user","user","usuario","chuli",null,"661632666","user@user.es",null, null);
 		customer.setRol(Roles.CLIENTE.toString());
-		User arquitecto = new User("arquitecto","arquitecto",null,null,null,null,"arquitecto@arquitecto.es",null, null);
+		User arquitecto = new User("arquitecto","arquitecto","arquitecto","arquitecto","arquitecto","666666666","arquitecto@arquitecto.es",null, null);
 		arquitecto.setRol(Roles.ARQUITECTO.toString());
 		saveOrUpdateUser(employee);
 		saveOrUpdateUser(customer);

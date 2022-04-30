@@ -4,18 +4,27 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class ProyectoNoResidencial extends Proyecto{
+
 	@Column(name="direccion")
 	private String direccion;
 	
+	@NotNull
+	@Min(value = 1,message = "La superficie de la parcela debe ser mayor que 0")
 	@Column(name="superficieTerreno")
 	private int superficieTerreno;
 	
+	@NotNull
+	@Min(value = 1, message = "La superficie del edificio debe ser mayor que 0")
 	@Column(name="superficieEdificio")
 	private int superficieEdificio;
 	
+	@NotBlank(message = "La finalidad de la obra es obligatoria")
 	@Column(name="finalidad")
 	private String finalidad;
 

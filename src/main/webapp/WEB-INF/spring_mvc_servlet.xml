@@ -48,5 +48,7 @@
 	<mvc:resources mapping="/usuarios/webjars/**" location="/webjars/"/>
 	<mvc:resources mapping="/certificados/webjars/**" location="/webjars/"/>
 	<mvc:resources mapping="/proyectos/webjars/**" location="/webjars/"/>
+	<mvc:resources mapping="/viviendas/webjars/**" location="/webjars/"/>
+	<mvc:resources mapping="/recursos/**" location="/resources/"/>
 	
 </beans>

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -15,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 import org.springframework.web.servlet.view.document.AbstractPdfView;
 
 import com.lowagie.text.Document;
@@ -47,7 +52,6 @@ public class UserController  {
 	@RequestMapping("/listaClientes")
 	public String listaClientes(Model elModelo){
 		elModelo.addAttribute("clientes", getClientes());
-		//elModelo.addAttribute("userSession",session);
 		return "listaClientes";
 	}
 	
@@ -61,29 +65,22 @@ public class UserController  {
 	@RequestMapping("/menu")
 	public String menu(Model elModelo){
 		User user = session.getUser();
-		List<Proyecto> proyecto=persistance.getProyectos(user);
-		List<EstadosProyecto> filtroEstados = Arrays.asList(EstadosProyecto.ASIGNADO,EstadosProyecto.EN_CURSO,EstadosProyecto.PRESUPUESTADO,EstadosProyecto.SOLICITADO); 
-		List<Proyecto> proyectosAsignados=persistance.statusFilter(persistance.getProyectosAsignados(user),filtroEstados);
-		List<Proyecto> proyectosSinAsignar=persistance.getProyectosSinAsignar();
-		filtroEstados = Arrays.asList(EstadosProyecto.FINALIZADO); 
-		List<Proyecto> proyectosFinalizados=persistance.statusFilter(persistance.getProyectosAsignados(user),filtroEstados);
-		List<User> empleados= getEmpleados();
-		List<User> clients= getClientes();
-		List<Certificado> certificados= persistance.getCertificados(user);
-		List<Vivienda> viviendas= persistance.getViviendas(user);
-		elModelo.addAttribute("proyectos", proyecto);
-		elModelo.addAttribute("certificados", certificados);
-		elModelo.addAttribute("userSession",session);
-		elModelo.addAttribute("empleados", empleados);
-		elModelo.addAttribute("clientes", clients);
-		elModelo.addAttribute("viviendas", viviendas);
-		elModelo.addAttribute("proyectosAsignados", proyectosAsignados);
-		elModelo.addAttribute("proyectosSinAsignar", proyectosSinAsignar);
-		elModelo.addAttribute("proyectosFinalizados", proyectosFinalizados);
-		
 		if(session.getUser() == null) {
 			return "redirect:/login/formularioLogin";
 		}
+		elModelo.addAttribute("certificadosCaducados", persistance.getCertificadosCaducados());
+		elModelo.addAttribute("proyectos", persistance.getProyectos(user));
+		elModelo.addAttribute("certificados", persistance.getCertificados(user));
+		elModelo.addAttribute("userSession",session);
+		elModelo.addAttribute("empleados", getEmpleados());
+		elModelo.addAttribute("clientes", getClientes());
+		elModelo.addAttribute("viviendas", persistance.getViviendas(user));
+		elModelo.addAttribute("proyectosAsignados", user.getProyectos());
+		elModelo.addAttribute("proyectosTodos", persistance.getProjects());
+		elModelo.addAttribute("certificadosAsignados", user.getCertificados());
+		elModelo.addAttribute("certificadosTodos", persistance.getCertificados());
+		elModelo.addAttribute("proyectosCaducados", persistance.getProyectosCandidadosInspeccionTecnica());
+		
 		
 		switch(session.getRol()) {
 			case "ADMINISTRADOR":
@@ -105,6 +102,7 @@ public class UserController  {
 		return "formularioCliente";
 	}
 	
+	
 	@GetMapping("/formularioActualizarCliente")
 	public String muestraFormularioActualizar(@RequestParam("clienteId") int id, Model elModelo ) {
 		User cliente = persistance.getUser(id);
@@ -112,40 +110,72 @@ public class UserController  {
 		return "formularioCliente";
 	}
 	
-
-	@RequestMapping("/formularioAgregarEmpleado")
-	public String formularioAgregarEmpleado(Model elModelo) {
-		User employee = new User();
-		List<String> roles = new ArrayList<String>();
-	    for(Roles r: Roles.values()) {
-	    	roles.add(r.toString());
-	    }
-	    elModelo.addAttribute("roles", roles);
-		elModelo.addAttribute("empleado", employee);
-		return "formularioEmpleado";
-		
+	@GetMapping("/verUsuario")
+	public String verUsuario(@RequestParam("usuarioId") int id, Model elModelo ) {
+		User usuario = persistance.getUser(id);
+		elModelo.addAttribute("usuario", usuario);
+		return "fichaUsuario";
 	}
 	
-	@GetMapping("/formularioActualizarEmpleado")
-	public String formularioActualizarEmpleado(@RequestParam("clienteId") int id, Model elModelo ) {
-		User employee = persistance.getUser(id);
+
+	@RequestMapping("/formularioAgregarUsuario")
+	public String formularioAgregarUsuario(Model elModelo) {
+		User usuario = new User();
 		List<String> roles = new ArrayList<String>();
 	    for(Roles r: Roles.values()) {
-	    	roles.add(r.toString());
+	    	if(!r.equals(Roles.CLIENTE)) {
+	    		roles.add(r.toString());
+	    	}
 	    }
 	    elModelo.addAttribute("roles", roles);
-		elModelo.addAttribute("empleado", employee);
+		elModelo.addAttribute("usuario", usuario);
+		return "formularioUsuario";
 		
-		return "formularioEmpleado";
 	}
 	
 	@PostMapping("/actualizarUsuario")
-	public String actualizarUsuario(@ModelAttribute("usuario") User usuario) {
+	public String actualizarUsuario(@Valid @ModelAttribute("usuario") User usuario,BindingResult bind,Model modelo) {
+		Boolean hasErrors = false;
+		String errores = "Errores: ";
+		System.out.println(usuario);
 		try {
-			persistance.saveOrUpdateUser(usuario);
-			return "redirect:/usuarios/menu";
-		}catch(ConstraintViolationException e) {
-			return "actualizarUsuarioKo";
+			Long.parseLong(usuario.getTelefono());
+		}catch(Exception e) {
+			hasErrors=true;
+			errores = errores + "El télefono debe ser un número";
+		}
+		if(usuario.getId()==0&&persistance.getUser(usuario.getUsuario())!=null) {
+			hasErrors = true;
+			errores = errores + "El usuario ya existe";
+		}
+
+		if(bind.hasErrors()||hasErrors){
+			for(ObjectError error:bind.getAllErrors()) {
+				errores = errores  + error.getDefaultMessage() + ",  ";
+			}
+			modelo.addAttribute("error",errores);
+			
+			if(usuario.getRol().equals(Roles.CLIENTE.toString())) {
+				User cliente;
+				if(usuario.getId()!=0) {
+					cliente = persistance.getUser(usuario.getId());
+				}else {
+					cliente = new User();
+					cliente.setRol("CLIENTE");
+				}
+				modelo.addAttribute("cliente", cliente);
+				return "formularioCliente";
+			}else {
+				return formularioAgregarUsuario(modelo);
+			}
+		}else {
+			try {
+				persistance.saveOrUpdateUser(usuario);
+				
+				return "redirect:/usuarios/menu";
+			}catch(ConstraintViolationException e) {
+				return "actualizarUsuarioKo";
+			}
 		}
 	}
 	
@@ -155,11 +185,7 @@ public class UserController  {
 			return "redirect:/usuarios/menu";
 	}
 	
-	  @RequestMapping(value = "/viewPDF", method = RequestMethod.GET)
-	  public ModelAndView viewPDF() throws Exception{
-	    List<User> users = getClientes();
-	    return new ModelAndView("viewPDF", "Users", users);
-	  }
+
 
 	  
 	  @ModelAttribute("userSession")

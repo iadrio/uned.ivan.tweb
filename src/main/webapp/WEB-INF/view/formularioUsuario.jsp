@@ -1,18 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.css'>
-<title>Formulario Cliente</title>
+<title>Formulario Usuario</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-secondary navbar-dark"></br></nav>
 <div>
-	<form:form action="actualizarUsuario" modelAttribute="cliente" method="POST">
+	<form:form action="actualizarUsuario" modelAttribute="usuario" method="POST">
 		<form:hidden path="id"/>
-		<form:hidden path="rol"/>
 		<div class="container">
 		</br>
 		<h4>INTRODUCE LOS DATOS</h4>
@@ -51,11 +50,25 @@
 			    	<label for="password" class="form-label">constraseña</label>
     				<form:input path="contrasena" type="password" class="form-control" id="password"/>
 			    </div>
-			    <div class="d-grid col align-self-end">
+			    <div class="col">
+			    <c:forEach var="item" items="${roles}">
+			    	<div class="row">
+				    	<div class="col">
+							<input class="form-check-input" path="rol"  type="radio" name="rol" id="${item}" value="${item}" required="required">
+							<label class="form-check-label" for="${item}">${item}</label>
+						</div>
+					</div>
+				</c:forEach>
+				</div>
+			</div>
+			<div class="row">
+				<div class="d-grid col align-self-end">
 			    	<button class="btn btn-dark" type="submit">Enviar</button>
 			    </div>
-			</div>
+		    </div>
 		</div>
+
+		
 	</form:form>
 </div>
 	<c:if test = "${error!=null}">

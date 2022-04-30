@@ -1,6 +1,9 @@
 package uned.ivan.tweb.entity;
 
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +13,10 @@ public class CertificadoHabitabilidad extends Certificado{
 	@Column(name="fechaVisita")
 	private Date fechaVisita;
 	
-	@Column(name="fechaEmision")
-	private Date fechaEmision;
-	
 	@Column(name="fechaCaducidad")
 	private Date fechaCaducidad;
+	
+	private int diasVigencia = 5475; //15 años
 
 	public Date getFechaVisita() {
 		return fechaVisita;
@@ -22,14 +24,6 @@ public class CertificadoHabitabilidad extends Certificado{
 
 	public void setFechaVisita(Date fechaVisita) {
 		this.fechaVisita = fechaVisita;
-	}
-
-	public Date getFechaEmision() {
-		return fechaEmision;
-	}
-
-	public void setFechaEmision(Date fechaEmision) {
-		this.fechaEmision = fechaEmision;
 	}
 
 	public Date getFechaCaducidad() {
@@ -41,11 +35,9 @@ public class CertificadoHabitabilidad extends Certificado{
 	}
 
 	public CertificadoHabitabilidad(int id, TipoCertificado tipo, Date fechaSolicitud, Date fechaEntrega, User cliente,
-			User arquitecto, float precio, Vivienda vivienda, EstadosCertificado estado, String otrosDatos, Date fechaVisita,
-			Date fechaEmision, Date fechaCaducidad) {
+			User arquitecto, float precio, Vivienda vivienda, EstadosCertificado estado, String otrosDatos, Date fechaVisita, Date fechaCaducidad) {
 		super(id, tipo, fechaSolicitud, fechaEntrega, cliente, arquitecto, precio, vivienda, estado, otrosDatos);
 		this.fechaVisita = fechaVisita;
-		this.fechaEmision = fechaEmision;
 		this.fechaCaducidad = fechaCaducidad;
 		setTipo(TipoCertificado.HABITABILIDAD);
 	}
@@ -65,10 +57,45 @@ public class CertificadoHabitabilidad extends Certificado{
 
 	@Override
 	public String toString() {
-		return "CertificadoHabitabilidad [fechaVisita=" + fechaVisita + ", fechaEmision=" + fechaEmision
-				+ ", fechaCaducidad=" + fechaCaducidad + "]";
+		return "CertificadoHabitabilidad [fechaVisita=" + fechaVisita + ", fechaCaducidad=" + fechaCaducidad + "]";
 	}
 	
+	@Override
+	public  boolean esFinalizable() {
+		List<EstadosCertificado> estadosPermitidos = Arrays.asList(EstadosCertificado.VISITA_REALIZADA);
+		if(estadosPermitidos.contains(this.getEstado())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 	
-
+	@Override
+	public boolean esVisitable() {
+		List<EstadosCertificado> estadosPermitidos = Arrays.asList(EstadosCertificado.PRESUPUESTADO);
+		if(estadosPermitidos.contains(this.getEstado())) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	@Override
+	public void finalizar() throws Exception{
+		Calendar c = Calendar.getInstance();
+		super.finalizar();
+		c.setTime(getFechaEntrega());
+		c.add(Calendar.DATE,diasVigencia);
+		setFechaCaducidad(c.getTime());
+	}
+	
+	@Override
+	public void visitar() throws Exception{
+		super.visitar();
+		setFechaVisita(new Date());
+	}
+	
+	public  boolean isExpirable() {
+		return true;
+	}
 }

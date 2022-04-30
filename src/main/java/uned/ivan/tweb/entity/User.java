@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
@@ -19,24 +22,30 @@ public class User {
 	@Column(name="id")
 	private int id;
 	
+	@NotBlank(message="El usuario no puede ir vacío")
 	@Column(name="usuario",unique=true)
 	private String usuario;
 	
+	@NotBlank(message="La contraseña no puede ir vacía")
 	@Column(name="contrasena")
 	private String contrasena;
 	
+	@NotBlank(message="El nombre no puede ir vacío")
 	@Column(name="nombre")
 	private String nombre;
 	
+	@NotBlank(message="El primer apellido no puede ir vacío")
 	@Column(name="apellido1")
 	private String apellido1;
 	
 	@Column(name="apellido2")
 	private String apellido2;
 	
+	@NotBlank(message="El teléfono no puede ir en blanco")
 	@Column(name="telefono")
 	private String telefono;
 	
+	@Email(message="formato del email incorrecto")
 	@Column(name="email")
 	private String email;
 
@@ -194,6 +203,8 @@ public class User {
 	public void agregarCertificado(Certificado certificado) {
 		if(certificados == null) {
 			certificados = new ArrayList<Certificado>();
+		}else if(certificados.contains(certificado)) {
+			return;
 		}
 		certificados.add(certificado);
 	}

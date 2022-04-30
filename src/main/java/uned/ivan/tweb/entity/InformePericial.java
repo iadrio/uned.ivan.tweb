@@ -24,6 +24,10 @@ public class InformePericial extends Certificado{
 	public String toString() {
 		return super.toString();
 	}
+	
+	public boolean isExpirable() {
+		return false;
+	}
 
 	
 }
