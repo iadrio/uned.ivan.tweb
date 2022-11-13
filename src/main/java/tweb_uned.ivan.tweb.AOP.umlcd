@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.yattasolutions.uml.diagrams.classifier:ClassDiagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:com.yattasolutions.uml.diagrams.classifier="http://ns.yatta-solutions.com/umllab/diagrams/classifier/1.1.0" xmi:id="_ZsI84MjuEeycC_yDIKiuvw">
+  <modelElement href="tweb.uml#_YjhvAMjuEeycC_yDIKiuvw"/>
+  <edges xsi:type="com.yattasolutions.uml.diagrams.classifier:AssociationVisual" xmi:id="_bmSVYMjuEeycC_yDIKiuvw" source="_bmSVacjuEeycC_yDIKiuvw">
+    <modelElement href="tweb.uml#_Y2LlQMjuEeycC_yDIKiuvw"/>
+    <visualProperties xmi:id="_bmWm0MjuEeycC_yDIKiuvw" position="90.0,90.0"/>
+    <stereotypes xmi:id="_bmSVYcjuEeycC_yDIKiuvw" name="Reference">
+      <modelElement href="tweb.uml#_Y2OokMjuEeycC_yDIKiuvw"/>
+    </stereotypes>
+    <nameVisual xmi:id="_bmSVYsjuEeycC_yDIKiuvw" text=""/>
+    <sourceRole xmi:id="_bmSVY8juEeycC_yDIKiuvw" aggregationKind="NONE" name="">
+      <modelElement href="tweb.uml#_Y2LlQcjuEeycC_yDIKiuvw"/>
+      <visibility xmi:id="_bmSVZMjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmSVZcjuEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </sourceRole>
+    <targetRole xmi:id="_bmSVZsjuEeycC_yDIKiuvw" aggregationKind="NONE" name="session" navigable="true">
+      <modelElement href="tweb.uml#_Yy9SIMjuEeycC_yDIKiuvw"/>
+      <visibility xmi:id="_bmSVZ8juEeycC_yDIKiuvw" label="-"/>
+      <cardinality xmi:id="_bmSVaMjuEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </targetRole>
+  </edges>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_bmP5IMjuEeycC_yDIKiuvw" name="exceptionsAOP">
+    <modelElement href="tweb.uml#_YlqdAMjuEeycC_yDIKiuvw"/>
+    <visualProperties xmi:id="_bmP5IcjuEeycC_yDIKiuvw" position="50.0,50.0" size="-1.0,-1.0"/>
+    <stereotypes xmi:id="_bmP5IsjuEeycC_yDIKiuvw" name="LegacyStyledElement">
+      <modelElement href="tweb.uml#_YlrEEMjuEeycC_yDIKiuvw"/>
+    </stereotypes>
+    <stereotypes xmi:id="_bmP5I8juEeycC_yDIKiuvw" name="Annotations">
+      <modelElement href="tweb.uml#_YlrrI8juEeycC_yDIKiuvw"/>
+    </stereotypes>
+    <stereotypes xmi:id="_bmP5JMjuEeycC_yDIKiuvw" name="Patch">
+      <modelElement href="tweb.uml#_ZnGE0MjuEeycC_yDIKiuvw"/>
+    </stereotypes>
+    <visibility xmi:id="_bmP5JcjuEeycC_yDIKiuvw" label="+"/>
+    <operations xmi:id="_bmP5JsjuEeycC_yDIKiuvw" name="todos">
+      <modelElement href="tweb.uml#_YlrEEcjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmP5J8juEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_YlrrIMjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmP5KMjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmP5KcjuEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </operations>
+  </nodes>
+  <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_bmSVacjuEeycC_yDIKiuvw" name="loginAOP" associationsOut="_bmSVYMjuEeycC_yDIKiuvw">
+    <modelElement href="tweb.uml#_YlrrJsjuEeycC_yDIKiuvw"/>
+    <visualProperties xmi:id="_bmSVasjuEeycC_yDIKiuvw" position="233.0,-90.0" size="-1.0,-1.0"/>
+    <stereotypes xmi:id="_bmSVa8juEeycC_yDIKiuvw" name="LegacyStyledElement">
+      <modelElement href="tweb.uml#_YlsSMMjuEeycC_yDIKiuvw"/>
+    </stereotypes>
+    <stereotypes xmi:id="_bmSVbMjuEeycC_yDIKiuvw" name="Annotations">
+      <modelElement href="tweb.uml#_YluHY8juEeycC_yDIKiuvw"/>
+    </stereotypes>
+    <stereotypes xmi:id="_bmSVbcjuEeycC_yDIKiuvw" name="Patch">
+      <modelElement href="tweb.uml#_ZnJIIMjuEeycC_yDIKiuvw"/>
+    </stereotypes>
+    <visibility xmi:id="_bmSVbsjuEeycC_yDIKiuvw" label="+"/>
+    <attributes xmi:id="_bmSVb8juEeycC_yDIKiuvw" name="session">
+      <modelElement href="tweb.uml#_Yy9SIMjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmSVcMjuEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_Yy9SIcjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmSVccjuEeycC_yDIKiuvw" label="-"/>
+      <cardinality xmi:id="_bmSVcsjuEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+      <type xmi:id="_bmSVc8juEeycC_yDIKiuvw" name="UserSession">
+        <modelElement href="tweb.uml#_YoV9kMjuEeycC_yDIKiuvw"/>
+      </type>
+    </attributes>
+    <operations xmi:id="_bmSVdMjuEeycC_yDIKiuvw" name="controlador">
+      <modelElement href="tweb.uml#_Yls5QMjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmSVdcjuEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_Yls5QcjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmSVdsjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmSVd8juEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_bmSVeMjuEeycC_yDIKiuvw" name="formularioLogin">
+      <modelElement href="tweb.uml#_Yls5RMjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmSVecjuEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_Yls5RcjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmSVesjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmSVe8juEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_bmSVfMjuEeycC_yDIKiuvw" name="checkLogin">
+      <modelElement href="tweb.uml#_Yls5SMjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmSVfcjuEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_Yls5ScjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmSVfsjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmSVf8juEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_bmSVgMjuEeycC_yDIKiuvw" name="returnMenu">
+      <modelElement href="tweb.uml#_YltgUcjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmSVgcjuEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_YltgUsjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmSVgsjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmSVg8juEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_bmSVhMjuEeycC_yDIKiuvw" name="formularioAgregarCliente">
+      <modelElement href="tweb.uml#_YltgVcjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmSVhcjuEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_YltgVsjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmSVhsjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmSVh8juEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_bmSViMjuEeycC_yDIKiuvw" name="actualizarUsuario">
+      <modelElement href="tweb.uml#_YltgWcjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmSVicjuEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_YluHYMjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmSVisjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmSVi8juEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+    </operations>
+    <operations xmi:id="_bmSVjMjuEeycC_yDIKiuvw" name="checkUserLogged">
+      <modelElement href="tweb.uml#_YxVhgcjuEeycC_yDIKiuvw"/>
+      <stereotypes xmi:id="_bmSVjcjuEeycC_yDIKiuvw" name="Annotations">
+        <modelElement href="tweb.uml#_YxWIkMjuEeycC_yDIKiuvw"/>
+      </stereotypes>
+      <visibility xmi:id="_bmSVjsjuEeycC_yDIKiuvw" label="+"/>
+      <cardinality xmi:id="_bmSVj8juEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+      <outParameters xmi:id="_bmSVkMjuEeycC_yDIKiuvw">
+        <modelElement href="tweb.uml#_YxVhg8juEeycC_yDIKiuvw"/>
+        <type xmi:id="_bmSVkcjuEeycC_yDIKiuvw" name="String">
+          <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+        </type>
+      </outParameters>
+      <parameters xmi:id="_bmSVksjuEeycC_yDIKiuvw" name="proceedingJoinPoint">
+        <modelElement href="tweb.uml#_YxVhgsjuEeycC_yDIKiuvw"/>
+        <cardinality xmi:id="_bmSVk8juEeycC_yDIKiuvw" label="1" max="1" min="1"/>
+        <type xmi:id="_bmSVlMjuEeycC_yDIKiuvw" name="ProceedingJoinPoint">
+          <modelElement href="tweb.uml#_YsKGkMjuEeycC_yDIKiuvw"/>
+        </type>
+      </parameters>
+    </operations>
+  </nodes>
+</com.yattasolutions.uml.diagrams.classifier:ClassDiagram>
